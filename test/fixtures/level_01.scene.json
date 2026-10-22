@@ -1,0 +1,2020 @@
+{
+  "name": "level_01",
+  "root": {
+    "name": "root",
+    "localPosition": {
+      "dx": 0.0,
+      "dy": 0.0
+    },
+    "localRotation": 0.0,
+    "localScale": 1.0,
+    "isActive": true,
+    "children": [
+      {
+        "name": "Platform_0",
+        "localPosition": {
+          "dx": -48.0,
+          "dy": -64.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "PlayerSpawn_1",
+        "localPosition": {
+          "dx": -208.0,
+          "dy": -136.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "CameraZone_2",
+        "localPosition": {
+          "dx": 80.0,
+          "dy": -160.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_3",
+        "localPosition": {
+          "dx": -336.0,
+          "dy": -144.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_4",
+        "localPosition": {
+          "dx": -304.0,
+          "dy": -144.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_5",
+        "localPosition": {
+          "dx": -304.0,
+          "dy": -112.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_6",
+        "localPosition": {
+          "dx": -368.0,
+          "dy": -144.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_7",
+        "localPosition": {
+          "dx": -368.0,
+          "dy": -112.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_8",
+        "localPosition": {
+          "dx": -272.0,
+          "dy": -144.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_9",
+        "localPosition": {
+          "dx": -272.0,
+          "dy": -112.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_10",
+        "localPosition": {
+          "dx": -368.0,
+          "dy": -144.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_11",
+        "localPosition": {
+          "dx": -336.0,
+          "dy": -144.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_12",
+        "localPosition": {
+          "dx": -368.0,
+          "dy": -176.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_13",
+        "localPosition": {
+          "dx": -272.0,
+          "dy": -64.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_14",
+        "localPosition": {
+          "dx": -304.0,
+          "dy": -80.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_15",
+        "localPosition": {
+          "dx": -304.0,
+          "dy": -48.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_16",
+        "localPosition": {
+          "dx": -336.0,
+          "dy": -80.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_17",
+        "localPosition": {
+          "dx": -336.0,
+          "dy": -48.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_18",
+        "localPosition": {
+          "dx": -368.0,
+          "dy": -48.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_19",
+        "localPosition": {
+          "dx": -368.0,
+          "dy": -80.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_20",
+        "localPosition": {
+          "dx": -336.0,
+          "dy": -80.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_20",
+        "localPosition": {
+          "dx": -288.0,
+          "dy": -48.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_21",
+        "localPosition": {
+          "dx": -272.0,
+          "dy": -64.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      },
+      {
+        "name": "Platform_22",
+        "localPosition": {
+          "dx": -288.0,
+          "dy": -48.0
+        },
+        "localRotation": 0.0,
+        "localScale": 1.0,
+        "isActive": true,
+        "children": []
+      }
+    ]
+  },
+  "entities": [
+    {
+      "name": "PlayerSpawn_1",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -208.0,
+            "dy": -136.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "SpawnComponent",
+          "tag": "player"
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Player",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -208.0922088623047,
+            "dy": -119.97461700439453
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "VelocityComponent",
+          "velocity": {
+            "dx": 0.0,
+            "dy": 0.0
+          },
+          "maxSpeed": 0.0
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 48.0,
+          "fillStyle": {
+            "color": 4282557941,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287679225,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 48.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.0,
+          "isStatic": false,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "PlayerControlComponent",
+          "customComponentId": "player_control_6fd9ba31",
+          "fields": {
+            "moveSpeed": 420.0,
+            "acceleration": 3600.0,
+            "airAcceleration": 2200.0,
+            "groundFriction": 4200.0,
+            "airFriction": 600.0,
+            "jumpSpeed": 900.0,
+            "maxFallSpeed": 1600.0,
+            "maxJumps": 1,
+            "stompBounceSpeed": 620.0,
+            "coyoteTime": 0.1,
+            "jumpBufferTime": 0.12,
+            "riseGravityScale": 1.0,
+            "fallGravityScale": 1.7,
+            "jumpCutGravityScale": 3.2
+          }
+        },
+        {
+          "type": "InputComponent"
+        },
+        {
+          "type": "HealthComponent",
+          "health": 3.0,
+          "maxHealth": 3.0,
+          "isInvulnerable": false
+        },
+        {
+          "type": "TagComponent",
+          "tag": "player"
+        },
+        {
+          "type": "CameraFollowComponent",
+          "enabled": true,
+          "lookaheadDistance": 140.0
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_0",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -48.0,
+            "dy": -64.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 416.0,
+          "height": 64.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 416.0,
+            "height": 64.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_3",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -336.0,
+            "dy": -144.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 96.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 96.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_4",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -304.0,
+            "dy": -144.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_5",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -304.0,
+            "dy": -112.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_6",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -368.0,
+            "dy": -144.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_7",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -368.0,
+            "dy": -112.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_8",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -272.0,
+            "dy": -144.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_9",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -272.0,
+            "dy": -112.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_10",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -368.0,
+            "dy": -144.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_11",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -336.0,
+            "dy": -144.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_12",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -368.0,
+            "dy": -176.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_13",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -272.0,
+            "dy": -64.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 64.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 64.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_14",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -304.0,
+            "dy": -80.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_15",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -304.0,
+            "dy": -48.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_16",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -336.0,
+            "dy": -80.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_17",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -336.0,
+            "dy": -48.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_18",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -368.0,
+            "dy": -48.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_19",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -368.0,
+            "dy": -80.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_20",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -336.0,
+            "dy": -80.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 96.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 96.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_20",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -288.0,
+            "dy": -48.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 64.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 64.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_21",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -272.0,
+            "dy": -64.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 32.0,
+          "height": 64.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 32.0,
+            "height": 64.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_22",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": -288.0,
+            "dy": -48.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "width": 64.0,
+          "height": 32.0,
+          "fillStyle": {
+            "color": 4283723386,
+            "blendMode": "modulate"
+          },
+          "strokeStyle": {
+            "color": 4287668649,
+            "blendMode": "modulate"
+          },
+          "filled": true,
+          "strokeWidth": 2.0,
+          "cornerRadius": 0.0
+        },
+        {
+          "type": "PhysicsBodyComponent",
+          "shape": {
+            "kind": "rectangle",
+            "width": 64.0,
+            "height": 32.0
+          },
+          "mass": 1.0,
+          "restitution": 0.0,
+          "drag": 0.98,
+          "isStatic": true,
+          "isOneWay": false,
+          "isSensor": false,
+          "categoryBits": 1,
+          "maskBits": 65535,
+          "groupIndex": 0,
+          "showDebugOutline": true
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "customComponentId": "platform_7f31c0a2",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "CameraZone_2",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "position": {
+            "dx": 80.0,
+            "dy": -160.0
+          },
+          "rotation": 0.0,
+          "scale": {
+            "dx": 1.0,
+            "dy": 1.0
+          }
+        },
+        {
+          "type": "CameraZoneComponent",
+          "customComponentId": "camera_zone_81de3f7c",
+          "fields": {
+            "width": 224.0,
+            "height": 192.0,
+            "zoom": 1.0,
+            "priority": 0,
+            "lockX": false,
+            "lockY": false
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "customComponentId": "layer_3ab67e05",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        }
+      ]
+    }
+  ]
+}

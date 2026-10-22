@@ -1,0 +1,2571 @@
+{
+  "version": 10,
+  "name": "level_01",
+  "mode": "2d",
+  "entities": [
+    {
+      "name": "PlayerSpawn_1",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -208.0,
+              "y": -136.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "SpawnComponent",
+          "fields": {
+            "spawner": "player"
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Player",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -208.0922088623047,
+              "y": -119.97461700439453,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "VelocityComponent",
+          "fields": {
+            "velocity": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "maxSpeed": 0.0
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 48.0,
+            "fillStyle": {
+              "color": 4282557941,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287679225,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "dynamic",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.0,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 48.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "PlayerControlComponent",
+          "fields": {
+            "moveSpeed": 420.0,
+            "acceleration": 3600.0,
+            "airAcceleration": 2200.0,
+            "groundFriction": 4200.0,
+            "airFriction": 600.0,
+            "jumpSpeed": 900.0,
+            "maxFallSpeed": 1600.0,
+            "maxJumps": 1,
+            "stompBounceSpeed": 620.0,
+            "coyoteTime": 0.1,
+            "jumpBufferTime": 0.12,
+            "riseGravityScale": 1.0,
+            "fallGravityScale": 1.7,
+            "jumpCutGravityScale": 3.2
+          }
+        },
+        {
+          "type": "InputComponent",
+          "fields": {}
+        },
+        {
+          "type": "HealthComponent",
+          "fields": {
+            "health": 3.0,
+            "maxHealth": 3.0,
+            "isInvulnerable": false
+          }
+        },
+        {
+          "type": "TagComponent",
+          "fields": {
+            "tags": [
+              "player"
+            ]
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_0",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -48.0,
+              "y": -64.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 416.0,
+            "height": 64.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 416.0,
+              "y": 64.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_3",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -336.0,
+              "y": -144.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 96.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 96.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_4",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -304.0,
+              "y": -144.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_5",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -304.0,
+              "y": -112.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_6",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -368.0,
+              "y": -144.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_7",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -368.0,
+              "y": -112.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_8",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -272.0,
+              "y": -144.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_9",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -272.0,
+              "y": -112.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_10",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -368.0,
+              "y": -144.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_11",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -336.0,
+              "y": -144.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_12",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -368.0,
+              "y": -176.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_13",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -272.0,
+              "y": -64.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 64.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 64.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_14",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -304.0,
+              "y": -80.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_15",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -304.0,
+              "y": -48.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_16",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -336.0,
+              "y": -80.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_17",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -336.0,
+              "y": -48.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_18",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -368.0,
+              "y": -48.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_19",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -368.0,
+              "y": -80.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_20",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -336.0,
+              "y": -80.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 96.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 96.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_20",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -288.0,
+              "y": -48.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 64.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 64.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_21",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -272.0,
+              "y": -64.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 32.0,
+            "height": 64.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 32.0,
+              "y": 64.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platform_22",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -288.0,
+              "y": -48.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "RectangleComponent",
+          "fields": {
+            "width": 64.0,
+            "height": 32.0,
+            "fillStyle": {
+              "color": 4283723386,
+              "blendMode": "modulate"
+            },
+            "strokeStyle": {
+              "color": 4287668649,
+              "blendMode": "modulate"
+            },
+            "filled": true,
+            "strokeWidth": 2.0,
+            "cornerRadius": 0.0
+          }
+        },
+        {
+          "type": "RigidBody2D",
+          "fields": {
+            "bodyType": "static",
+            "mass": 1.0,
+            "layer": 0,
+            "collidesWith": null,
+            "isSensor": false,
+            "friction": 0.2,
+            "restitution": 0.0,
+            "gravityScale": 1.0,
+            "linearDamping": 0.98,
+            "angularDamping": 0.0,
+            "continuousCollision": false,
+            "canSleep": true,
+            "lockRotation": false,
+            "initialVelocity": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "initialAngularVelocity": 0.0,
+            "groupIndex": 0
+          }
+        },
+        {
+          "type": "Collider2D",
+          "fields": {
+            "shape": "box",
+            "size": {
+              "x": 64.0,
+              "y": 32.0
+            },
+            "offset": {
+              "dx": 0.0,
+              "dy": 0.0
+            },
+            "oneWay": false,
+            "oneWayDirection": "fromAbove",
+            "showDebugOutline": true
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        },
+        {
+          "type": "PlatformComponent",
+          "fields": {
+            "kind": "solid",
+            "crumbleDelay": 0.35,
+            "respawnDelay": 2.0,
+            "bounceImpulse": 1400.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "CameraZone_2",
+      "parentName": null,
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": 80.0,
+              "y": -160.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "VirtualCameraComponent",
+          "fields": {
+            "priority": 20,
+            "enabled": false,
+            "standbyUpdate": "never",
+            "follow": {
+              "tag": "player"
+            },
+            "zoom": 1.0,
+            "dutch": 0.0,
+            "projection": "orthographic",
+            "fieldOfView": 1.0471975511965976,
+            "nearClip": -10000.0,
+            "farClip": 10000.0
+          }
+        },
+        {
+          "type": "CameraFramingComponent",
+          "fields": {
+            "screenX": 0.0,
+            "screenY": 0.0,
+            "deadZoneWidth": 0.1,
+            "deadZoneHeight": 0.1,
+            "softZoneWidth": 0.8,
+            "softZoneHeight": 0.8,
+            "dampingX": 0.5,
+            "dampingY": 0.5,
+            "lookaheadTime": 0.0,
+            "lookaheadSmoothing": 0.3,
+            "followX": true,
+            "followY": true
+          }
+        },
+        {
+          "type": "CameraTriggerComponent",
+          "fields": {
+            "width": 224.0,
+            "height": 192.0,
+            "target": {
+              "tag": "player"
+            },
+            "cameraName": "",
+            "mode": "enableWhileInside",
+            "amount": 10,
+            "oneShot": false
+          }
+        },
+        {
+          "type": "LayerComponent",
+          "fields": {
+            "layerId": "main",
+            "layer": 0,
+            "zOrder": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "MainCamera",
+      "components": [
+        {
+          "type": "TransformComponent",
+          "fields": {
+            "position": {
+              "x": -208.0922088623047,
+              "y": -119.97461700439453,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        {
+          "type": "VirtualCameraComponent",
+          "fields": {
+            "priority": 10,
+            "enabled": true,
+            "standbyUpdate": "never",
+            "follow": {
+              "name": "Player"
+            },
+            "zoom": 1.0,
+            "dutch": 0.0
+          }
+        },
+        {
+          "type": "CameraFramingComponent",
+          "fields": {
+            "screenX": 0.0,
+            "screenY": 0.0,
+            "deadZoneWidth": 0.0,
+            "deadZoneHeight": 0.0,
+            "softZoneWidth": 0.8,
+            "softZoneHeight": 0.8,
+            "dampingX": 0.5,
+            "dampingY": 0.5,
+            "lookaheadTime": 0.25,
+            "lookaheadSmoothing": 0.3,
+            "followX": true,
+            "followY": true
+          }
+        }
+      ]
+    }
+  ]
+}

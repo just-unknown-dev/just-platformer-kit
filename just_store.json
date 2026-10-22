@@ -1,0 +1,51 @@
+{
+  "category": "kits",
+  "dependencies": {
+    "just_game_engine_editor": "^0.1.0-dev.1"
+  },
+  "editor": {
+    "editorOnlyLibraries": [
+      "editor.dart",
+      "src/editor/"
+    ],
+    "modules": [
+      {
+        "class": "PlatformerModule",
+        "library": "package:just_platformer_kit/editor.dart",
+        "order": 10
+      }
+    ]
+  },
+  "id": "just_platformer_kit",
+  "kind": "kit",
+  "name": "Platformer Kit",
+  "requires": {
+    "just_game_engine": "^2.0.0"
+  },
+  "runtime": {
+    "componentTypes": [
+      "CollectibleComponent",
+      "GoalComponent",
+      "HazardComponent",
+      "LevelBoundsComponent",
+      "MovingPlatformComponent",
+      "ParallaxRectComponent",
+      "PatrolEnemyComponent",
+      "PlatformComponent",
+      "PlayerControlComponent"
+    ],
+    "extensions": [
+      {
+        "const": "PlatformerKit.extension",
+        "library": "package:just_platformer_kit/just_platformer_kit.dart",
+        "order": 10
+      }
+    ],
+    "setup": {
+      "file": "lib/game/boot/game_boot.dart",
+      "snippet": "PlatformerKit.registerSystems(\n  world,\n  physics: engine.physics,\n  camera: camera,\n  moveAction: GameActions.move,\n  jumpAction: GameActions.jump,\n);"
+    }
+  },
+  "schema": 1,
+  "version": "0.1.0"
+}

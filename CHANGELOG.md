@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.2.0 (unreleased)
+## 0.1.0
+
+Initial release. The platformer that briefly lived inside `just_game_engine` and `just_game_engine_editor`, as its own package, so the engine and editor carry no genre.
+
+- **Runtime** (`just_platformer_kit.dart`): platforms (solid, one-way, crumbling, bouncy), moving platforms, hazards, collectibles, goals, patrol enemies, level bounds, camera zones, rectangle parallax, and a player controller with coyote time, jump buffering and variable jump height. `PlatformerKit.registerSystems` and `PlatformerKit.registerCodecs`.
+- **Design time** (`editor.dart`): `PlatformerModule`, with the kit's prefabs, a moving-platform path tool, and overlays for level bounds and platform paths.
 
 - The level bounds and platform paths are gizmos: drawn as the editor's Gizmos button and menu say in each mode, for what is off the Level Map too.
 - **Builds on `just_editor_core`**, the editor's module contract, instead of depending on `just_game_engine_editor`: the module's code needs nothing else of the editor. The tests that drive a real editor take `just_game_engine_editor` as a dev dependency.
@@ -46,11 +51,3 @@
 - `PlatformerKit.registerCodecs()` is still what a game calls at boot; the module only contributes the design-time half.
 - Levels save in scene format v1; the v0 fixture is kept as the migration sample.
 - The inspector descriptors are gone: every `PlatformerSchemas` schema carries its `ComponentHints` (labels, scrub feel, conditional fields such as a crumbling platform's delays). Enum fields use `EnumFieldType` (`platformer.platformKind`, `platformer.platformLoopMode`, `platformer.enemyBehaviour`).
-
-## 0.1.0
-
-Initial release. The platformer that briefly lived inside `just_game_engine` and `just_game_engine_editor`, as its own package, so the engine and editor carry no genre.
-
-- **Runtime** (`just_platformer_kit.dart`): platforms (solid, one-way, crumbling, bouncy), moving platforms, hazards, collectibles, goals, patrol enemies, level bounds, camera zones, rectangle parallax, and a player controller with coyote time, jump buffering and variable jump height. `PlatformerKit.registerSystems` and `PlatformerKit.registerCodecs`.
-- **Design time** (`editor.dart`): `PlatformerEditorExtension` with 13 prefabs, inspector descriptors built from the runtime schemas, a moving-platform path tool, and overlays for level bounds, camera zones and platform paths.
-- Built only on the public `EditorExtension` contract; see the README for how to write your own.

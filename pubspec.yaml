@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  just_game_engine: ^2.0.0
+  just_game_engine: ^2.0.0-dev.2
   just_physics_engine: ^1.3.0
 
   # Design-time only. `lib/just_platformer_kit.dart` never imports it, so a

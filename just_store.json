@@ -1,8 +1,10 @@
 {
-  "category": "kits",
-  "dependencies": {
-    "just_game_engine_editor": "^0.1.0-dev.1"
+  "author": {
+    "name": "Just Unknown",
+    "url": "https://justunknown.com"
   },
+  "category": "kits",
+  "description": "Player control, platforms (fixed and moving), patrolling enemies, hazards, collectibles, goals, level bounds and parallax backgrounds, and the Level Designer module that places them.",
   "editor": {
     "editorOnlyLibraries": [
       "editor.dart",
@@ -19,8 +21,12 @@
   "id": "just_platformer_kit",
   "kind": "kit",
   "name": "Platformer Kit",
+  "previews": [
+    "store/card.png"
+  ],
   "requires": {
-    "just_game_engine": "^2.0.0"
+    "just_game_engine": "^2.0.0-dev.2",
+    "just_game_engine_editor": "^0.1.0-dev.1"
   },
   "runtime": {
     "componentTypes": [
@@ -47,5 +53,12 @@
     }
   },
   "schema": 1,
+  "stage": "beta",
+  "summary": "Platformer gameplay and the Level Designer tools to build it.",
+  "tags": [
+    "platformer",
+    "2d",
+    "level design"
+  ],
   "version": "0.1.0"
 }

@@ -53,6 +53,10 @@ abstract final class PlatformerSchemas {
               label: 'Damage',
               scrub: ScrubHint(step: 0.5, fractionDigits: 1),
             ),
+            'invulnerabilitySeconds': const FieldHint(
+              label: 'I-frames',
+              scrub: ScrubHint(step: 0.1, fractionDigits: 2),
+            ),
             'stompable': const FieldHint(label: 'Stompable'),
           },
         ),
@@ -102,6 +106,11 @@ abstract final class PlatformerSchemas {
             'contactDamage',
             (c) => (c as PatrolEnemyComponent).contactDamage,
             (c, v) => (c as PatrolEnemyComponent).contactDamage = v,
+          ),
+          _decimal(
+            'invulnerabilitySeconds',
+            (c) => (c as PatrolEnemyComponent).invulnerabilitySeconds,
+            (c, v) => (c as PatrolEnemyComponent).invulnerabilitySeconds = v,
           ),
           SchemaField(
             name: 'stompable',
@@ -728,27 +737,27 @@ SchemaField _decimal(
   min: min,
 );
 
-// Level bounds are one Rect stored as four fields. Decoding applies them in
-// order — left, top, then width, height — so each setter keeps whatever the
-// earlier ones established.
+// Level bounds are one Rect stored as four fields: an origin and a size. The
+// origin moves the rect and keeps its size, as the inspector's "Origin" row
+// says, and a field left out of a file keeps its default.
 
 void _setLeft(Component c, double v) {
   final comp = c as LevelBoundsComponent;
-  comp.bounds = Rect.fromLTRB(
+  comp.bounds = Rect.fromLTWH(
     v,
     comp.bounds.top,
-    comp.bounds.right,
-    comp.bounds.bottom,
+    comp.bounds.width,
+    comp.bounds.height,
   );
 }
 
 void _setTop(Component c, double v) {
   final comp = c as LevelBoundsComponent;
-  comp.bounds = Rect.fromLTRB(
+  comp.bounds = Rect.fromLTWH(
     comp.bounds.left,
     v,
-    comp.bounds.right,
-    comp.bounds.bottom,
+    comp.bounds.width,
+    comp.bounds.height,
   );
 }
 

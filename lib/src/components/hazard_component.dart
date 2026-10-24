@@ -29,10 +29,12 @@ class HazardComponent extends Component {
   /// than silently decrementing a number.
   Offset knockback;
 
-  /// How long the victim cannot be hurt again. Without this, overlapping a
-  /// hazard drains the whole health bar in a handful of frames.
+  /// How long the victim cannot be hurt again. A player who stays in (or on)
+  /// the hazard is hurt again each time this runs out; without it, overlapping
+  /// a hazard would drain the whole health bar in a handful of frames.
   double invulnerabilitySeconds;
 
-  /// Send the victim back to their last checkpoint even if they survived.
+  /// Send the victim back to their last checkpoint even if they survived: the
+  /// hit's `EntityDamagedEvent.respawn` is true, and the game moves them.
   bool respawnOnHit;
 }

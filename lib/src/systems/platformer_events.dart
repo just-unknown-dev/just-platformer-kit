@@ -55,6 +55,7 @@ class EntityDamagedEvent extends GameEvent {
     required this.amount,
     this.sourceEntity,
     this.wasFatal = false,
+    this.respawn = false,
   });
 
   /// Who was hurt.
@@ -68,6 +69,12 @@ class EntityDamagedEvent extends GameEvent {
 
   /// Whether this hit took them to zero health.
   final bool wasFatal;
+
+  /// Whether the hit asks for them to go back to their last checkpoint even
+  /// though they survived it: a hazard with [HazardComponent.respawnOnHit]
+  /// (a pit that costs a life and puts you back). The game does the moving,
+  /// as it does after a fatal hit.
+  final bool respawn;
 }
 
 /// Fired when an entity falls below [LevelBoundsComponent.killPlaneY].

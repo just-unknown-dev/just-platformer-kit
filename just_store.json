@@ -20,6 +20,10 @@
   },
   "id": "just_platformer_kit",
   "kind": "kit",
+  "license": {
+    "file": "LICENSE",
+    "spdx": "BSD-3-Clause"
+  },
   "name": "Platformer Kit",
   "previews": [
     "store/card.png"
@@ -49,7 +53,7 @@
     ],
     "setup": {
       "file": "lib/game/boot/game_boot.dart",
-      "snippet": "PlatformerKit.registerSystems(\n  world,\n  physics: engine.physics,\n  camera: camera,\n  moveAction: GameActions.move,\n  jumpAction: GameActions.jump,\n);"
+      "snippet": "PlatformerKit.registerSystems(\n  engine.world,\n  physics: engine.physics,\n  camera: engine.cameraSystem.mainCamera,\n);"
     }
   },
   "schema": 1,
@@ -60,5 +64,5 @@
     "2d",
     "level design"
   ],
-  "version": "0.1.0"
+  "version": "0.1.0-beta.1"
 }

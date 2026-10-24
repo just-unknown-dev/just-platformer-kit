@@ -18,14 +18,23 @@ import 'player_control_system.dart';
 /// contact normal — that normal is what distinguishes stomping an enemy from
 /// walking into one.
 ///
+/// A hazard keeps hurting a player who stays in it (or on it), once each
+/// time their invulnerability runs out — a lava pool is not safe to stand in
+/// after the first hit.
+///
 /// Runs at [SystemPriorities.genreRules] (59), just under gameplay, so
 /// the health changes it causes are visible to [CheckpointSystem] in the same
-/// frame.
+/// frame. Stands still while time does (a `deltaTime` of 0: paused, or an
+/// editor authoring the level), so it never edits the level being authored.
 class PlatformerGameplaySystem extends System {
-  PlatformerGameplaySystem({this.playerTag = PlatformerTags.player});
+  PlatformerGameplaySystem({this.playerTag = PlatformerTags.player, this.physics});
 
   /// [TagComponent] value identifying the player.
   final String playerTag;
+
+  /// Where a level's [LevelBoundsComponent.gravityY] is applied: the world's
+  /// physics. Null applies none.
+  final PhysicsEngine? physics;
 
   @override
   int get priority => SystemPriorities.genreRules;
@@ -41,7 +50,9 @@ class PlatformerGameplaySystem extends System {
   void onAddedToWorld() {
     _subscriptions
       ..add(world.events.on<SensorEnter2DEvent>(_onSensorEnter))
-      ..add(world.events.on<CollisionEnter2DEvent>(_onCollision));
+      ..add(world.events.on<SensorExit2DEvent>(_onSensorExit))
+      ..add(world.events.on<CollisionEnter2DEvent>(_onCollision))
+      ..add(world.events.on<CollisionExit2DEvent>(_onCollisionExit));
   }
 
   @override
@@ -50,13 +61,47 @@ class PlatformerGameplaySystem extends System {
       sub.cancel();
     }
     _subscriptions.clear();
+    _inHazard.clear();
+    _groundOf.clear();
   }
 
   @override
   void update(double deltaTime) {
+    if (deltaTime <= 0) return;
+    _applyLevelGravity();
     _checkCharacterLandings();
+    _hurtWhileInHazards();
     _tickCrumblingPlatforms(deltaTime);
     _checkKillPlane();
+  }
+
+  static const List<Type> _boundsQuery = [LevelBoundsComponent];
+  static const List<Type> _charactersQuery = [CharacterBody2D];
+  static const List<Type> _collectiblesQuery = [CollectibleComponent];
+  static const List<Type> _platformsQuery = [PlatformComponent];
+  static const List<Type> _mortalsQuery = [TransformComponent, HealthComponent];
+
+  // ── Level gravity ─────────────────────────────────────────────────────────
+
+  /// The bounds whose gravity is applied, and the gravity it had then.
+  LevelBoundsComponent? _gravityOf;
+  double? _gravityApplied;
+
+  /// Puts the level's [LevelBoundsComponent.gravityY] on [physics] when a
+  /// level with bounds starts, and again when it is changed. Gravity set by
+  /// game code in between stays until then.
+  void _applyLevelGravity() {
+    final physics = this.physics;
+    if (physics == null) return;
+    final entities = world.query(_boundsQuery);
+    if (entities.isEmpty) return;
+    final bounds = entities.first.getComponent<LevelBoundsComponent>()!;
+    if (identical(bounds, _gravityOf) && bounds.gravityY == _gravityApplied) {
+      return;
+    }
+    _gravityOf = bounds;
+    _gravityApplied = bounds.gravityY;
+    physics.setGravity(physics.gravity.x, bounds.gravityY);
   }
 
   /// What each character player stood on last frame.
@@ -67,7 +112,7 @@ class PlatformerGameplaySystem extends System {
   /// crumbling platform is seen here, as its ground changing.
   void _checkCharacterLandings() {
     _groundOf.removeWhere((e, _) => !e.isAlive);
-    for (final player in world.query([CharacterBody2D])) {
+    for (final player in world.query(_charactersQuery)) {
       if (!player.isActive || !_isPlayer(player)) continue;
       final body = player.getComponent<CharacterBody2D>()!;
       final ground = body.isGrounded ? body.groundEntity : null;
@@ -93,13 +138,54 @@ class PlatformerGameplaySystem extends System {
 
     final hazard = sensor.getComponent<HazardComponent>();
     if (hazard != null) {
-      _applyHazard(sensor, visitor, hazard);
+      _enterHazard(sensor, visitor, hazard);
       return;
     }
 
     final goal = sensor.getComponent<GoalComponent>();
     if (goal != null) {
       _reachGoal(sensor, visitor, goal);
+    }
+  }
+
+  void _onSensorExit(SensorExit2DEvent event) =>
+      _inHazard.remove((event.sensor, event.other));
+
+  void _onCollisionExit(CollisionExit2DEvent event) {
+    _inHazard
+      ..remove((event.entityA, event.entityB))
+      ..remove((event.entityB, event.entityA));
+  }
+
+  // ── Staying in a hazard ───────────────────────────────────────────────────
+
+  /// (hazard, player) pairs touching now: hurt again whenever the player's
+  /// invulnerability runs out.
+  final Set<(Entity, Entity)> _inHazard = {};
+
+  /// A player touching [hazard]: hurt now, and kept track of until they part.
+  void _enterHazard(Entity source, Entity victim, HazardComponent hazard) {
+    if (!_isPlayer(victim)) return;
+    // Hurt again while inside only when there are i-frames to wait out:
+    // without them it would take health every step.
+    if (victim.hasComponent<PlayerControlComponent>()) {
+      _inHazard.add((source, victim));
+    }
+    _applyHazard(source, victim, hazard);
+  }
+
+  void _hurtWhileInHazards() {
+    if (_inHazard.isEmpty) return;
+    _inHazard.removeWhere((pair) => !pair.$1.isAlive || !pair.$2.isAlive);
+    for (final (source, victim) in _inHazard.toList()) {
+      final hazard = source.getComponent<HazardComponent>();
+      final control = victim.getComponent<PlayerControlComponent>();
+      if (hazard == null || control == null) {
+        _inHazard.remove((source, victim));
+        continue;
+      }
+      if (!source.isActive || !victim.isActive) continue;
+      if (control.invulnerabilityTimer <= 0) _applyHazard(source, victim, hazard);
     }
   }
 
@@ -142,7 +228,7 @@ class PlatformerGameplaySystem extends System {
   }
 
   int _remainingCollectibles() => world
-      .query([CollectibleComponent])
+      .query(_collectiblesQuery)
       .where(
         (e) =>
             e.isActive && !e.getComponent<CollectibleComponent>()!.isCollected,
@@ -185,7 +271,7 @@ class PlatformerGameplaySystem extends System {
     final hazard = subject.getComponent<HazardComponent>();
     if (hazard != null &&
         subject.getComponent<CollectibleComponent>() == null) {
-      _applyHazard(subject, other, hazard);
+      _enterHazard(subject, other, hazard);
     }
   }
 
@@ -207,13 +293,21 @@ class PlatformerGameplaySystem extends System {
       return;
     }
 
-    // Touched from the side or below: the enemy wins this exchange.
+    // Touched from the side or below: the enemy wins this exchange. The
+    // player is knocked away from it — whichever way it faces — and given
+    // time to get clear before it can hurt again.
+    final playerX = player.getComponent<TransformComponent>()?.position.x;
+    final enemyX = enemyEntity.getComponent<TransformComponent>()?.position.x;
+    final away = playerX == null || enemyX == null || playerX == enemyX
+        ? enemy.facing
+        : (playerX > enemyX ? 1 : -1);
     _damage(
       player,
       enemy.contactDamage,
       source: enemyEntity,
-      knockbackX: -enemy.facing * 380.0,
+      knockbackX: away * 380.0,
       knockbackY: -420.0,
+      invulnerabilitySeconds: enemy.invulnerabilitySeconds,
     );
   }
 
@@ -251,10 +345,12 @@ class PlatformerGameplaySystem extends System {
       knockbackX: hazard.knockback.dx,
       knockbackY: hazard.knockback.dy,
       invulnerabilitySeconds: hazard.invulnerabilitySeconds,
+      respawn: hazard.respawnOnHit,
     );
   }
 
-  /// Applies damage, honouring invulnerability frames.
+  /// Applies damage, honouring invulnerability frames — the player's own
+  /// timer, and [HealthComponent.isInvulnerable], which no hit gets past.
   ///
   /// Without an invulnerability window, standing in a hazard drains the whole
   /// health bar within a few frames — the player never sees what killed them.
@@ -265,11 +361,13 @@ class PlatformerGameplaySystem extends System {
     double knockbackX = 0,
     double knockbackY = 0,
     double? invulnerabilitySeconds,
+    bool respawn = false,
   }) {
     final control = victim.getComponent<PlayerControlComponent>();
     if (control != null && control.invulnerabilityTimer > 0) return;
 
     final health = victim.getComponent<HealthComponent>();
+    if (health != null && health.isInvulnerable) return;
     final fatal =
         amount.isInfinite || (health != null && health.health <= amount);
 
@@ -304,6 +402,7 @@ class PlatformerGameplaySystem extends System {
         amount: amount.isInfinite ? (health?.maxHealth ?? 1.0) : amount,
         sourceEntity: source,
         wasFatal: fatal,
+        respawn: respawn,
       ),
     );
   }
@@ -316,7 +415,7 @@ class PlatformerGameplaySystem extends System {
   /// rather than destroying the entity, so the platform can come back without
   /// the level having to remember how to rebuild it.
   void _tickCrumblingPlatforms(double deltaTime) {
-    for (final entity in world.query([PlatformComponent])) {
+    for (final entity in world.query(_platformsQuery)) {
       if (!entity.isActive) continue;
       final platform = entity.getComponent<PlatformComponent>()!;
       if (platform.kind == PlatformKind.oneWay) {
@@ -390,15 +489,19 @@ class PlatformerGameplaySystem extends System {
 
   /// Kills anything that has fallen past the level's kill plane.
   ///
+  /// A player is left for the game to bring back; anything else — an enemy
+  /// that walked off a ledge — is destroyed, rather than falling and being
+  /// simulated forever below the level.
+  ///
   /// This exists instead of [BoundarySystem], which requires only
   /// [TransformComponent] and therefore acts on every entity in the world,
   /// camera included.
   void _checkKillPlane() {
-    final boundsEntities = world.query([LevelBoundsComponent]);
+    final boundsEntities = world.query(_boundsQuery);
     if (boundsEntities.isEmpty) return;
     final bounds = boundsEntities.first.getComponent<LevelBoundsComponent>()!;
 
-    for (final entity in world.query([TransformComponent, HealthComponent])) {
+    for (final entity in world.query(_mortalsQuery)) {
       if (!entity.isActive) continue;
       final transform = entity.getComponent<TransformComponent>()!;
       if (transform.position.y < bounds.killPlaneY) continue;
@@ -408,6 +511,8 @@ class PlatformerGameplaySystem extends System {
 
       health.health = 0;
       world.events.fire(FellOutOfWorldEvent(entity: entity));
+      // Deferred, like every destroy here: the query is being walked.
+      if (!_isPlayer(entity)) world.commands.destroy(entity);
     }
   }
 

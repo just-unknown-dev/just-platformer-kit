@@ -105,11 +105,15 @@ void main() {
     final hits = <double>[];
     level.world.events.on<EntityDamagedEvent>((e) => hits.add(e.amount));
     final player = level.player(3 * _tile + 16, 2 * _tile);
-    level.run(90);
+    level.run(30);
 
-    expect(hits, isNotEmpty);
-    expect(hits.first, 2);
+    expect(hits, [2]);
     expect(player.getComponent<HealthComponent>()!.health, 3);
+
+    // Still in them when the second of invulnerability is over: hurt again.
+    level.run(60);
+    expect(hits, [2, 2]);
+    expect(player.getComponent<HealthComponent>()!.health, 1);
     final spikes = level.world
         .query([MapBodyComponent])
         .where((e) => e.hasComponent<HazardComponent>());

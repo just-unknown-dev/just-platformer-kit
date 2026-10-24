@@ -40,7 +40,11 @@ final plugin = await JustGameEditorPlugin.register(
 );
 ```
 
-A player is a `RigidBody2D` with a `Collider2D` and a `VelocityComponent` (the template's), or a `CharacterBody2D`: `PlayerControlSystem` gives both the same feel, and the level rules work on both. The kit steers a rigid body by its velocity, so give it `linearDamping: 0` (the engine's default of 0.05 slows it between steps: it skips running down a slope) and the kit's `friction: 0.2`, as the template's player has.
+A player is a `RigidBody2D` with a `Collider2D` and a `VelocityComponent` (the template's), or a `CharacterBody2D`: `PlayerControlSystem` gives both the same feel, and the level rules work on both. It also needs a `PlayerControlComponent`, an `InputComponent` (whose `move` and `jump` actions it reads) and the `player` tag (`PlatformerTags.player`), and a `HealthComponent` to be hurt. The kit steers a rigid body by its velocity, so give it `linearDamping: 0` (the engine's default of 0.05 slows it between steps: it skips running down a slope) and the kit's `friction: 0.2`, as the template's player has. A rigid-body player runs relative to the moving platform it stands on, so it rides one standing still.
+
+What the game decides, the kit reports as events: `EntityDamagedEvent` (with `wasFatal`, and `respawn` for a hazard with `respawnOnHit`), `FellOutOfWorldEvent`, `CollectiblePickedUpEvent`, `LevelCompletedEvent`. The template's `GameSession` shows one way to answer them.
+
+The kit's systems stand still while time does (a `deltaTime` of 0). An editor authoring a level runs the world that way, so they never move, capture or write anything in the level being edited.
 
 ## Tiles and the Level Map
 
@@ -48,13 +52,13 @@ A level's ground lives in its **Level Map** (the engine's `LevelMapComponent`, o
 
 | kind | behaves like | properties |
 |---|---|---|
-| `hazard` | the Hazard prefab: a sensor that hurts | `damage`, `instantKill`, `respawnOnHit` |
+| `hazard` | the Hazard prefab: a sensor that hurts, again each time the player's invulnerability runs out while they stay in it | `damage`, `instantKill`, `respawnOnHit` (the hit's `EntityDamagedEvent.respawn`) |
 | `bouncy` | the bouncy platform | `bounce` (launch speed) |
 | `crumbling` | the crumbling platform: one body per tile, hidden while it is down (`LevelMapHandle.setBodyHidden`) | `crumbleDelay`, `respawnDelay` |
 
 A tile gets its kind and properties in the editor's Tileset Editor.
 
-Every kit prefab is an entity, built by its `build`. Drawn or painted in the Level Designer, it becomes a child of the Level Map on one of its layers, like everything else placed there: platforms, one-way, crumbling and bouncy platforms, hazards, moving platforms, collectibles, enemies, the player spawn, checkpoints, the goal and camera zones. Decoration has `depth: 'background'`, so it always goes on a Background layer of the map; its own `ParallaxRectComponent` scrolls it.
+Every kit prefab is an entity, built by its `build`. Drawn or painted in the Level Designer, it becomes a child of the Level Map on one of its layers, like everything else placed there: platforms, one-way, crumbling and bouncy platforms, hazards, moving platforms, collectibles, enemies, the player spawn, checkpoints, the goal and camera zones. Decoration has `depth: 'background'`, so it always goes on a Background layer of the map; its own `ParallaxRectComponent` scrolls it. A checkpoint's respawn point is saved in world space: move a checkpoint and the Problems dock says its respawn point stayed behind, with a fix that puts it back on the checkpoint.
 
 `PlayerControlSystem` walks slopes: standing still on one stays put, running up keeps its speed, running down stays on the ground (`maxSlopeDegrees`, `slopeSnap`). Importing a Tiled map, each object group becomes a layer of the Level Map, and an object whose class names a kit prefab — by its id, its name or one of its `aliases` (`PlayerSpawn`, `Coin`, `Enemy`, `Spikes`, `OneWay`, `Spring`, `MovingPlatform`, …) — becomes that prefab, an entity on the layer its object group became. Other objects become plain entities there.
 
@@ -148,3 +152,7 @@ Then pass it in `main_editor.dart`: `modules: [DungeonModule()]`. Every registry
 - **Namespace ids** (`dungeon.door`, not `door`). A reused id replaces the earlier registration, which is how you override a built-in on purpose.
 - **Keep the runtime half free of editor imports.** The kit's two-library split is what keeps the editor out of release builds.
 - **Test the round trip.** See `test/component_round_trip_test.dart` (every field survives save and load) and `test/platformer_module_test.dart` (everything the module contributes is reachable from outside the editor package).
+
+## License
+
+BSD-3-Clause. See [LICENSE](LICENSE).

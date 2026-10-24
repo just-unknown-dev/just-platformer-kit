@@ -20,9 +20,10 @@ enum PlatformLoopMode {
 ///
 /// Requires the entity's [RigidBody2D] to be kinematic — a dynamic
 /// body would be shoved off its path by whatever is standing on it, and a
-/// static body cannot move at all. `MovingPlatformSystem` steers by setting
-/// velocity rather than teleporting, so riders inherit the motion through
-/// normal contact instead of being left behind.
+/// static body cannot move at all — and a [VelocityComponent], which is
+/// what `MovingPlatformSystem` steers: it sets velocity rather than
+/// teleporting, and `PlayerControlSystem` carries a player standing on it at
+/// [currentVelocity].
 class MovingPlatformComponent extends Component {
   MovingPlatformComponent({
     List<Offset>? waypoints,
@@ -46,7 +47,8 @@ class MovingPlatformComponent extends Component {
   /// How long to wait at each waypoint before moving on.
   double pauseSeconds;
 
-  /// Whether the platform starts moving without being triggered.
+  /// Whether the platform starts moving by itself. Off, it waits until game
+  /// code sets [isMoving] — a switch, a trigger, a cutscene.
   bool autoStart;
 
   // ── Runtime state, owned by MovingPlatformSystem ──────────────────────────
@@ -61,9 +63,14 @@ class MovingPlatformComponent extends Component {
   /// Counts down while paused at a waypoint.
   double pauseTimer = 0.0;
 
-  /// Whether the platform is currently moving.
-  bool isMoving = true;
+  /// Whether the platform travels its path: [autoStart] until something
+  /// sets it. Set it true to start a platform, false to stop one where it
+  /// is. [PlatformLoopMode.once] sets it false at the end of the path.
+  bool get isMoving => _moving ?? autoStart;
+  set isMoving(bool value) => _moving = value;
+  bool? _moving;
 
-  /// Velocity applied this frame, so riders can inherit it.
+  /// The velocity it moves at this step, in world units per second: what a
+  /// rider standing on it is carried at. Zero while it waits.
   Offset currentVelocity = Offset.zero;
 }

@@ -14,8 +14,15 @@ import '../components/platformer.dart';
 ///
 /// Runs just before render, after the camera has settled for the frame —
 /// running earlier would use the previous frame's camera position and the
-/// background would lag by one frame during fast movement.
-class ParallaxRectSystem extends System {
+/// background would lag by one frame during fast movement. It is also a
+/// [FrameSystem], so with a camera that moves once per rendered frame
+/// (`CameraUpdateMode.frame`) the background moves with it rather than once
+/// per fixed step.
+///
+/// It stands still while time does (a `deltaTime` of 0: paused, or an editor
+/// authoring the level): the editor's view moves the camera, and the
+/// decorations must stay where the designer put them.
+class ParallaxRectSystem extends System implements FrameSystem {
   ParallaxRectSystem({required this.camera});
 
   /// The camera parallax is measured against.
@@ -25,13 +32,22 @@ class ParallaxRectSystem extends System {
   int get priority => SystemPriorities.render + 1;
 
   @override
-  List<Type> get requiredComponents => [
+  List<Type> get requiredComponents => const [
     TransformComponent,
     ParallaxRectComponent,
   ];
 
   @override
   void update(double deltaTime) {
+    if (deltaTime > 0) _apply();
+  }
+
+  @override
+  void frame(double deltaTime, double alpha) {
+    if (deltaTime > 0) _apply();
+  }
+
+  void _apply() {
     final cameraPos = camera.position;
 
     forEach((entity) {

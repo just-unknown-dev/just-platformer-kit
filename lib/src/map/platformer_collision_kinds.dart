@@ -20,7 +20,7 @@ import '../components/platformer.dart';
 /// | `crumbling` | `crumbleDelay`, `respawnDelay` (float, seconds) |
 abstract final class PlatformerCollisionKinds {
   /// Hurts what touches it; passed through, like the hazard prefab.
-  static final MapCollisionKind hazard = MapCollisionKind(
+  static MapCollisionKind get hazard => MapCollisionKind(
     id: 'hazard',
     label: 'Hazard',
     color: 0xFFEF5350,
@@ -35,7 +35,7 @@ abstract final class PlatformerCollisionKinds {
   );
 
   /// Launches what lands on it.
-  static final MapCollisionKind bouncy = MapCollisionKind(
+  static MapCollisionKind get bouncy => MapCollisionKind(
     id: 'bouncy',
     label: 'Bouncy',
     color: 0xFFFFCA28,
@@ -49,7 +49,7 @@ abstract final class PlatformerCollisionKinds {
 
   /// Gives way a moment after it is stood on, and comes back. Never merged
   /// with its neighbours: each tile falls on its own.
-  static final MapCollisionKind crumbling = MapCollisionKind(
+  static MapCollisionKind get crumbling => MapCollisionKind(
     id: 'crumbling',
     label: 'Crumbling',
     color: 0xFFA1887F,
@@ -63,6 +63,9 @@ abstract final class PlatformerCollisionKinds {
     ),
   );
 
+  /// Every kind, made from the code as it now is: getters rather than
+  /// `static final`s, so a hot reload (which never re-runs a static
+  /// initialiser) reaches them through `PlatformerKit.extension`'s refresh.
   static List<MapCollisionKind> get all => [hazard, bouncy, crumbling];
 
   /// Makes the kinds known to [kinds] — an engine's

@@ -26,6 +26,7 @@ class PatrolEnemyComponent extends Component {
     this.aggroRange = 400.0,
     this.turnAtLedge = true,
     this.contactDamage = 1.0,
+    this.invulnerabilitySeconds = 1.0,
     this.stompable = true,
   });
 
@@ -41,13 +42,19 @@ class PatrolEnemyComponent extends Component {
   /// Distance at which [EnemyBehaviour.chase] starts following the player.
   double aggroRange;
 
-  /// Turn around at the edge of a platform instead of walking off it. Needs a
-  /// downward raycast ahead of the enemy, so it costs one cast per enemy per
-  /// frame — turn it off for enemies on continuous ground.
+  /// Turn around at the edge of a platform instead of walking off it (a
+  /// chaser stops there). Needs a downward raycast ahead of the enemy, so it
+  /// costs one cast per enemy per frame — turn it off for enemies on
+  /// continuous ground. Walls turn an enemy either way.
   bool turnAtLedge;
 
   /// Damage dealt to the player on side contact.
   double contactDamage;
+
+  /// How long a player it hurt cannot be hurt again, by anything: the
+  /// knockback carries them clear, rather than a second touch landing at
+  /// once.
+  double invulnerabilitySeconds;
 
   /// Whether landing on this enemy from above kills it. The defining
   /// interaction of the genre.

@@ -55,7 +55,7 @@ class PlayerControlSystem extends System {
   int get priority => SystemPriorities.playerControl;
 
   @override
-  List<Type> get requiredComponents => [
+  List<Type> get requiredComponents => const [
     TransformComponent,
     PlayerControlComponent,
     InputComponent,
@@ -63,6 +63,10 @@ class PlayerControlSystem extends System {
 
   @override
   void update(double deltaTime) {
+    // Time standing still — paused, or an editor authoring the level: the
+    // player's saved values (its body's gravity scale, its velocity) are
+    // left as they are.
+    if (deltaTime <= 0) return;
     forEach((entity) {
       if (!entity.isActive) return;
 
@@ -86,10 +90,13 @@ class PlayerControlSystem extends System {
       }
 
       _tickJumpTimers(control, input, deltaTime);
+      // What it stands on moves it too: its own speed is what is left.
+      final ground = control.isGrounded ? groundVelocityOf(bodyComp) : Offset.zero;
       // On a slope, run as on the flat, along the ground.
       final slope = _slopeUnder(control, bodyComp);
       if (slope != null) velocity.velocity.x = _speedAlong(slope, velocity);
-      velocity.velocity.x = _horizontal(control, input, velocity.velocity.x, deltaTime);
+      velocity.velocity.x =
+          ground.dx + _horizontal(control, input, velocity.velocity.x - ground.dx, deltaTime);
       final jumped = _applyJump(control, velocity, input);
       if (slope != null && !jumped) {
         _followSlope(slope, control, bodyComp, velocity);
@@ -104,11 +111,11 @@ class PlayerControlSystem extends System {
             up <= control.moveSpeed + slopeSnap) {
           velocity.velocity.y = 0;
         }
-        _applyGravityFeel(control, bodyComp, velocity, input);
+        _applyGravityFeel(control, bodyComp, velocity, input, ground.dy);
         _clampFallSpeed(control, velocity);
       }
       _wasOnSlope[entity] = slope != null && !jumped;
-      _carryGroundVelocity(bodyComp, velocity);
+      if (!jumped) _followGroundDown(velocity, ground);
     });
   }
 
@@ -316,13 +323,17 @@ class PlayerControlSystem extends System {
   /// and unresponsive on release. Falling harder than rising, and harder still
   /// when jump is let go early, is what turns one button into both a hop and a
   /// full leap.
+  ///
+  /// [groundDy] is the vertical speed of what it stands on: riding a rising
+  /// platform is not rising.
   void _applyGravityFeel(
     PlayerControlComponent control,
     RigidBody2D bodyComp,
     VelocityComponent velocity,
     InputComponent input,
+    double groundDy,
   ) {
-    if (velocity.velocity.y < 0) {
+    if (velocity.velocity.y - groundDy < 0) {
       control.isRising = true;
       bodyComp.gravityScale = input.isDown(jumpAction)
           ? control.riseGravityScale
@@ -346,27 +357,36 @@ class PlayerControlSystem extends System {
     }
   }
 
-  /// Adds the velocity of whatever the entity is standing on.
+  /// The velocity of what [body] stands on, in world units a second: a
+  /// moving platform's ([MovingPlatformComponent.currentVelocity]), or any
+  /// other kinematic body's; zero for ground that does not move.
   ///
   /// Contact friction alone does not carry a character on a moving platform —
-  /// they visibly slide toward its trailing edge. Adding the platform's own
-  /// velocity is what makes standing still on a moving platform actually mean
-  /// standing still.
-  void _carryGroundVelocity(
-    RigidBody2D bodyComp,
-    VelocityComponent velocity,
-  ) {
-    final ground = bodyComp.groundEntity;
-    if (ground == null || !ground.isAlive) return;
-
+  /// they visibly slide toward its trailing edge. Running relative to the
+  /// ground is what makes standing still on a moving platform actually mean
+  /// standing still: the run speed is worked out from the velocity less
+  /// this, and this is added back.
+  static Offset groundVelocityOf(RigidBody2D body) {
+    final ground = body.groundEntity;
+    if (ground == null || !ground.isAlive) return Offset.zero;
     final platform = ground.getComponent<MovingPlatformComponent>();
-    if (platform == null || !platform.isMoving) return;
+    if (platform != null) {
+      return platform.isMoving ? platform.currentVelocity : Offset.zero;
+    }
+    final rigid = ground.getComponent<RigidBody2D>();
+    return rigid != null && rigid.bodyType == BodyType.kinematic
+        ? rigid.linearVelocity
+        : Offset.zero;
+  }
 
-    velocity.velocity.x += platform.currentVelocity.dx;
-    // Only inherit downward motion. Inheriting upward motion would repeatedly
-    // launch the rider, because they are re-grounded every step.
-    if (platform.currentVelocity.dy > 0) {
-      velocity.velocity.y += platform.currentVelocity.dy;
+  /// Keeps a rider on ground that moves down: at least as fast down as it.
+  ///
+  /// Gravity alone lets a platform going down drop away under the rider, who
+  /// lands again a moment later — grounded, airborne, grounded, a landing each
+  /// time. Only downward motion: what moves up pushes the rider up itself.
+  static void _followGroundDown(VelocityComponent velocity, Offset ground) {
+    if (ground.dy > 0 && velocity.velocity.y < ground.dy) {
+      velocity.velocity.y = ground.dy;
     }
   }
 
@@ -383,8 +403,9 @@ class PlayerControlSystem extends System {
     } else {
       return;
     }
-    // Refund one air jump so stomp chains stay possible.
-    control.jumpsUsed = math.max(0, control.jumpsUsed - 1);
+    // Refund one air jump so stomp chains stay possible — and stay in a
+    // jump: at 0, past coyote time, no jump at all would be left.
+    control.jumpsUsed = math.max(1, control.jumpsUsed - 1);
     control.isRising = true;
   }
 }

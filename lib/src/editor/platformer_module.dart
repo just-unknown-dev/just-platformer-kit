@@ -3,6 +3,7 @@ import 'package:just_game_engine/just_game_engine.dart' as jge;
 import 'package:just_editor_core/just_editor_core.dart';
 
 import '../../just_platformer_kit.dart';
+import 'platformer_checks.dart';
 import 'platformer_overlays.dart';
 import 'platformer_prefabs.dart';
 
@@ -148,6 +149,11 @@ class PlatformerModule extends EditorModule {
     LevelBoundsOverlay(),
     PlatformPathOverlay(pathToolId: pathToolId),
   ];
+
+  /// The platformer's Problems-dock checks: a checkpoint moved away from its
+  /// own respawn point.
+  @override
+  List<SceneValidator> get validators => PlatformerChecks.all;
 
   @override
   void onRegister(EditorModuleContext context) {

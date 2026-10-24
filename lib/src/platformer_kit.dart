@@ -52,7 +52,12 @@ abstract final class PlatformerKit {
     bindings.register('falling', (e) {
       final control = of(e);
       if (control == null) return null;
-      final vy = e.getComponent<VelocityComponent>()?.velocity.y ?? 0;
+      // A character's own velocity; a rigid body's, through its velocity
+      // component.
+      final vy =
+          e.getComponent<CharacterBody2D>()?.velocity.dy ??
+          e.getComponent<VelocityComponent>()?.velocity.y ??
+          0;
       return !control.isGrounded && vy > 0;
     });
     bindings.register('justLanded', (e) => of(e)?.justLanded);
@@ -87,8 +92,10 @@ abstract final class PlatformerKit {
   /// The platformer systems, for a game that wants to add them selectively or
   /// swap in its own replacement for one of them.
   ///
-  /// [camera] is what parallax is measured against; [moveAction] and
-  /// [jumpAction] name the input actions the player controller reads.
+  /// [physics] is what the enemies probe and what a level's
+  /// [LevelBoundsComponent.gravityY] is applied to; [camera] is what
+  /// parallax is measured against; [moveAction] and [jumpAction] name the
+  /// input actions the player controller reads.
   static List<System> systems({
     required PhysicsEngine physics,
     required GameCamera camera,
@@ -96,7 +103,7 @@ abstract final class PlatformerKit {
     String jumpAction = 'jump',
   }) => [
     PlayerControlSystem(moveAction: moveAction, jumpAction: jumpAction),
-    PlatformerGameplaySystem(),
+    PlatformerGameplaySystem(physics: physics),
     MovingPlatformSystem(),
     PatrolEnemySystem(physics: physics),
     ParallaxRectSystem(camera: camera),

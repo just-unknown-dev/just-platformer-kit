@@ -28,7 +28,9 @@ class LevelBoundsComponent extends Component implements CameraBoundsSource {
   /// under [bounds], so a pit reads as a pit before it kills.
   double killPlaneY;
 
-  /// World gravity for this level, applied on load.
+  /// World gravity for this level: `PlatformerGameplaySystem` (given the
+  /// world's physics, as `PlatformerKit.systems` does) applies it when the
+  /// level starts, and again whenever it changes.
   ///
   /// The physics package is calibrated at 1 unit = 1 cm, so its 981 default is
   /// real-world gravity and feels floaty for a platformer. Roughly 2200 gives

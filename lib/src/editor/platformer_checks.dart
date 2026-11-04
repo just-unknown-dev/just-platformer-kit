@@ -62,7 +62,7 @@ abstract final class PlatformerChecks {
     if (x == null || y == null || writeX == null || writeY == null) return;
     ComponentFieldCommand set(
       String label,
-      jge.SchemaField field,
+      jge.FieldDefinition field,
       void Function(jge.Component, Object?) write,
       double value,
     ) => ComponentFieldCommand(

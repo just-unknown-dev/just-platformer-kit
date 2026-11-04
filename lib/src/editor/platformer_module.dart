@@ -70,7 +70,7 @@ class PlatformerModule extends EditorModule {
     if (entity.getComponent<PatrolEnemyComponent>() != null) {
       return Icons.pest_control_rodent_outlined;
     }
-    if (entity.getComponent<MovingPlatformComponent>() != null) {
+    if (entity.getComponent<MovingPlatform2DComponent>() != null) {
       return Icons.swap_horiz_rounded;
     }
     if (entity.getComponent<PlatformComponent>() != null) {
@@ -105,13 +105,13 @@ class PlatformerModule extends EditorModule {
           'to move it, Alt+click to remove it',
       order: 40,
       binding: PathBinding(
-        resolve: (entity) => entity.getComponent<MovingPlatformComponent>(),
+        resolve: (entity) => entity.getComponent<MovingPlatform2DComponent>(),
         read: (component) =>
-            List.of((component as MovingPlatformComponent).waypoints),
+            List.of((component as MovingPlatform2DComponent).waypoints),
         write: (component, points) =>
-            (component as MovingPlatformComponent).waypoints = points,
+            (component as MovingPlatform2DComponent).waypoints = points,
         isClosed: (component) =>
-            (component as MovingPlatformComponent).loopMode ==
+            (component as MovingPlatform2DComponent).loopMode ==
             PlatformLoopMode.loop,
         emptyMessage: 'Select a moving platform to edit its path',
       ),

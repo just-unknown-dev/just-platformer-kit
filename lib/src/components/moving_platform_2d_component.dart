@@ -18,14 +18,14 @@ enum PlatformLoopMode {
 
 /// Drives an entity along a path of world-space waypoints.
 ///
-/// Requires the entity's [RigidBody2D] to be kinematic — a dynamic
+/// Requires the entity's [RigidBody2DComponent] to be kinematic — a dynamic
 /// body would be shoved off its path by whatever is standing on it, and a
 /// static body cannot move at all — and a [VelocityComponent], which is
-/// what `MovingPlatformSystem` steers: it sets velocity rather than
+/// what `MovingPlatform2DSystem` steers: it sets velocity rather than
 /// teleporting, and `PlayerControlSystem` carries a player standing on it at
 /// [currentVelocity].
-class MovingPlatformComponent extends Component {
-  MovingPlatformComponent({
+class MovingPlatform2DComponent extends Component {
+  MovingPlatform2DComponent({
     List<Offset>? waypoints,
     this.speed = 120.0,
     this.loopMode = PlatformLoopMode.pingPong,
@@ -51,7 +51,7 @@ class MovingPlatformComponent extends Component {
   /// code sets [isMoving] — a switch, a trigger, a cutscene.
   bool autoStart;
 
-  // ── Runtime state, owned by MovingPlatformSystem ──────────────────────────
+  // ── Runtime state, owned by MovingPlatform2DSystem ──────────────────────────
 
   /// Index of the waypoint currently being travelled toward.
   int targetIndex = 1;

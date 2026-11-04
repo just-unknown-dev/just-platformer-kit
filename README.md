@@ -8,7 +8,7 @@ The kit is also the worked example of how to give the editor a genre. It uses on
 
 | Import | Contains | Safe in a release build |
 |---|---|---|
-| `package:just_platformer_kit/just_platformer_kit.dart` | Components, systems, save/load schemas | Yes |
+| `package:just_platformer_kit/just_platformer_kit.dart` | Components, systems, save/load definitions | Yes |
 | `package:just_platformer_kit/editor.dart` | Prefabs, the path tool, overlays, the module — pick "Platformer" in the Level Designer's header switch | No: import it only from your editor entry point |
 
 The runtime library never imports the editor, so a game built from `lib/main.dart` contains no editor code.
@@ -27,7 +27,7 @@ await engine.initialize();
 PlatformerKit.registerSystems(
   engine.world,
   physics: engine.physics,
-  camera: engine.cameraSystem.mainCamera,
+  camera: engine.camera.mainCamera,
 );
 await SceneLoader.loadAsset(engine.world, SceneAssets.pathFor('level_01'));
 ```
@@ -40,7 +40,7 @@ final plugin = await JustGameEditorPlugin.register(
 );
 ```
 
-A player is a `RigidBody2D` with a `Collider2D` and a `VelocityComponent` (the template's), or a `CharacterBody2D`: `PlayerControlSystem` gives both the same feel, and the level rules work on both. It also needs a `PlayerControlComponent`, an `InputComponent` (whose `move` and `jump` actions it reads) and the `player` tag (`PlatformerTags.player`), and a `HealthComponent` to be hurt. The kit steers a rigid body by its velocity, so give it `linearDamping: 0` (the engine's default of 0.05 slows it between steps: it skips running down a slope) and the kit's `friction: 0.2`, as the template's player has. A rigid-body player runs relative to the moving platform it stands on, so it rides one standing still.
+A player is a `RigidBody2DComponent` with a `Collider2DComponent` and a `VelocityComponent` (the template's), or a `CharacterBody2DComponent`: `PlayerControlSystem` gives both the same feel, and the level rules work on both. It also needs a `PlayerControlComponent`, an `InputComponent` (whose `move` and `jump` actions it reads) and the `player` tag (`PlatformerTags.player`), and a `HealthComponent` to be hurt. The kit steers a rigid body by its velocity, so give it `linearDamping: 0` (the engine's default of 0.05 slows it between steps: it skips running down a slope) and the kit's `friction: 0.2`, as the template's player has. A rigid-body player runs relative to the moving platform it stands on, so it rides one standing still.
 
 What the game decides, the kit reports as events: `EntityDamagedEvent` (with `wasFatal`, and `respawn` for a hazard with `respawnOnHit`), `FellOutOfWorldEvent`, `CollectiblePickedUpEvent`, `LevelCompletedEvent`. The template's `GameSession` shows one way to answer them.
 
@@ -66,15 +66,15 @@ Every kit prefab is an entity, built by its `build`. Drawn or painted in the Lev
 
 Say you're making a top-down game with doors that need keys. Mirror the kit's layout, putting the runtime half in your game's `lib/` and the design-time half in a file only `main_editor.dart` imports.
 
-**1. Describe the component once, where it lives (runtime).** A `ComponentSchema` is what saves it, loads it in the shipped game, and — through its `hints` — what the inspector shows. It ships with the game; the hints are a few constants the editor reads and the game ignores.
+**1. Describe the component once, where it lives (runtime).** A `ComponentDefinition` is what saves it, loads it in the shipped game, and — through its `hints` — what the inspector shows. It ships with the game; the hints are a few constants the editor reads and the game ignores.
 
 ```dart
-final doorSchema = ComponentSchema<DoorComponent>(
+final doorDefinition = ComponentDefinition<DoorComponent>(
   type: 'DoorComponent',
   id: 'door',                         // never change: saved levels use it
   create: DoorComponent.new,
   fields: [
-    SchemaField(
+    FieldDefinition(
       name: 'keyId',
       kind: FieldTypes.text,
       read: (c) => (c as DoorComponent).keyId,
@@ -90,7 +90,7 @@ final doorSchema = ComponentSchema<DoorComponent>(
 );
 
 // At boot, before loading a level:
-ComponentDefinitionRegistry.instance.register(doorSchema);
+engine.context.definitions.register(doorDefinition);
 ```
 
 Skip the registration and the level does not save the door: the editor leaves it out and says so in its log, because the shipped game could not have loaded it. There is no second, design-time description to keep in step.
@@ -115,9 +115,9 @@ class DungeonModule extends EditorModule {
       color: const Color(0xFF8D6E63),
       build: (position, size) => [
         TransformComponent(position: Vector3(position.dx, position.dy, 0)),
-        RectangleComponent(width: size.width, height: size.height),
+        Rectangle2DComponent(width: size.width, height: size.height),
         // A static body the size of the rectangle, resized with it.
-        Collider2D(shape: ColliderShape2D.matchShape),
+        Collider2DComponent(shape: Collider2DShape.matchShape),
         LayerComponent(),
         DoorComponent(),
       ],
@@ -148,7 +148,7 @@ Then pass it in `main_editor.dart`: `modules: [DungeonModule()]`. Every registry
 
 ## Rules worth keeping
 
-- **Never change a schema's `id`, `type` or field names** once levels use them. Add fields freely: a missing field loads as the constructor default.
+- **Never change a definition's `id`, `type` or field names** once levels use them. Add fields freely: a missing field loads as the constructor default.
 - **Namespace ids** (`dungeon.door`, not `door`). A reused id replaces the earlier registration, which is how you override a built-in on purpose.
 - **Keep the runtime half free of editor imports.** The kit's two-library split is what keeps the editor out of release builds.
 - **Test the round trip.** See `test/component_round_trip_test.dart` (every field survives save and load) and `test/platformer_module_test.dart` (everything the module contributes is reachable from outside the editor package).

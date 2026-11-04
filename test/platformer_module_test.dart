@@ -74,7 +74,7 @@ void main() {
     // No design-time descriptors any more: the runtime schema carries the
     // hints, and every field of it has an editor in the scope.
     for (final schema
-        in PlatformerSchemas.all.whereType<jge.ComponentSchema>()) {
+        in PlatformerDefinitions.all.whereType<jge.ComponentDefinition>()) {
       expect(schema.hints.name, isNotNull, reason: schema.type);
       expect(schema.hints.group, isNotNull, reason: schema.type);
       for (final field in schema.fields) {
@@ -225,10 +225,10 @@ void main() {
     expect(coin.whereType<CollectibleComponent>(), hasLength(1));
     final at = coin.whereType<jge.TransformComponent>().single.position;
     expect((at.x, at.y), (40.0, 40.0));
-    expect(of('Lift').whereType<MovingPlatformComponent>(), hasLength(1));
+    expect(of('Lift').whereType<MovingPlatform2DComponent>(), hasLength(1));
     expect(of('Pit').whereType<HazardComponent>(), hasLength(1));
     // Drawn as a box in Tiled, a platform keeps its size.
-    final ledge = of('Ledge').whereType<jge.Collider2D>().single;
+    final ledge = of('Ledge').whereType<jge.Collider2DComponent>().single;
     expect(ledge.oneWay, isTrue);
   });
 

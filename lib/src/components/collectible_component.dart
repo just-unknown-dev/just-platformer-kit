@@ -4,7 +4,7 @@ import 'package:just_game_engine/just_game_engine.dart';
 
 /// A pickup — coins, gems, keys.
 ///
-/// Expects a sensor body ([RigidBody2D.isSensor]) and a [Collider2D].
+/// Expects a sensor body ([RigidBody2DComponent.isSensor]) and a [Collider2DComponent].
 class CollectibleComponent extends Component {
   CollectibleComponent({
     this.kind = 'coin',

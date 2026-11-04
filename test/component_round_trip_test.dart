@@ -52,9 +52,9 @@ void main() {
     expect(restored.bounceImpulse, closeTo(1750, 1e-9));
   });
 
-  test('MovingPlatformComponent keeps its path', () {
+  test('MovingPlatform2DComponent keeps its path', () {
     final restored = roundTrip(
-      MovingPlatformComponent(
+      MovingPlatform2DComponent(
         waypoints: const [Offset(10, 20), Offset(300, 40), Offset(-5, 900)],
         speed: 275,
         loopMode: PlatformLoopMode.loop,

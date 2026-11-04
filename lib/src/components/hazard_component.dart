@@ -6,7 +6,7 @@ import 'package:just_game_engine/just_game_engine.dart';
 
 /// Marks an entity as damaging to touch — spikes, lava, a saw blade.
 ///
-/// Pair with a sensor [RigidBody2D] for something the player passes
+/// Pair with a sensor [RigidBody2DComponent] for something the player passes
 /// through (lava, a kill volume), or a solid one for something they also stand
 /// on (a spiked block).
 class HazardComponent extends Component {

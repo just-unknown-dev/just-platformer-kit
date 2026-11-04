@@ -18,12 +18,12 @@ import '../components/platformer.dart';
 ///
 /// A player is either body:
 ///
-/// * a [RigidBody2D] (with a [VelocityComponent]): it writes the velocity
-///   and [RigidBody2D.gravityScale] and lets the physics step integrate
+/// * a [RigidBody2DComponent] (with a [VelocityComponent]): it writes the velocity
+///   and [RigidBody2DComponent.gravityScale] and lets the physics step integrate
 ///   them, rather than moving the transform itself — a transform write
 ///   registers as a teleport and breaks collision resolution;
-/// * a [CharacterBody2D]: it sets [CharacterBody2D.moveVelocity], jumps and
-///   [CharacterBody2D.gravityScale], and leaves slopes, steps and moving
+/// * a [CharacterBody2DComponent]: it sets [CharacterBody2DComponent.moveVelocity], jumps and
+///   [CharacterBody2DComponent.gravityScale], and leaves slopes, steps and moving
 ///   platforms to the character mover.
 ///
 /// The feel is the same either way. See [PlayerControlComponent] for what
@@ -72,13 +72,13 @@ class PlayerControlSystem extends System {
 
       final control = entity.getComponent<PlayerControlComponent>()!;
       final input = entity.getComponent<InputComponent>()!;
-      final character = entity.getComponent<CharacterBody2D>();
+      final character = entity.getComponent<CharacterBody2DComponent>();
       if (character != null) {
         _updateCharacter(control, character, input, deltaTime);
         return;
       }
       final velocity = entity.getComponent<VelocityComponent>();
-      final bodyComp = entity.getComponent<RigidBody2D>();
+      final bodyComp = entity.getComponent<RigidBody2DComponent>();
       if (velocity == null || bodyComp == null) return;
 
       final wasGrounded = control.isGrounded;
@@ -119,12 +119,12 @@ class PlayerControlSystem extends System {
     });
   }
 
-  /// The same feel for a [CharacterBody2D]: its run speed lives in
-  /// [CharacterBody2D.moveVelocity], and the mover takes slopes, steps and
+  /// The same feel for a [CharacterBody2DComponent]: its run speed lives in
+  /// [CharacterBody2DComponent.moveVelocity], and the mover takes slopes, steps and
   /// moving platforms as they come.
   void _updateCharacter(
     PlayerControlComponent control,
-    CharacterBody2D body,
+    CharacterBody2DComponent body,
     InputComponent input,
     double deltaTime,
   ) {
@@ -170,7 +170,7 @@ class PlayerControlSystem extends System {
   /// Sends a character up at [speed]: from the ground as a jump, and in the
   /// air (coyote time, a second jump, a stomp) as its speed itself — the
   /// mover takes a jump only from the ground.
-  static void launch(CharacterBody2D body, double speed) {
+  static void launch(CharacterBody2DComponent body, double speed) {
     body
       ..jump(speed)
       ..velocity = Offset(body.velocity.dx, -speed); // up is -Y
@@ -186,7 +186,7 @@ class PlayerControlSystem extends System {
   /// steep to stand on.
   Offset? _slopeUnder(
     PlayerControlComponent control,
-    RigidBody2D body,
+    RigidBody2DComponent body,
   ) {
     if (!control.isGrounded) return null;
     final n = body.groundNormal;
@@ -212,7 +212,7 @@ class PlayerControlSystem extends System {
   void _followSlope(
     Offset n,
     PlayerControlComponent control,
-    RigidBody2D body,
+    RigidBody2DComponent body,
     VelocityComponent velocity,
   ) {
     final speed = velocity.velocity.x;
@@ -328,7 +328,7 @@ class PlayerControlSystem extends System {
   /// platform is not rising.
   void _applyGravityFeel(
     PlayerControlComponent control,
-    RigidBody2D bodyComp,
+    RigidBody2DComponent bodyComp,
     VelocityComponent velocity,
     InputComponent input,
     double groundDy,
@@ -358,7 +358,7 @@ class PlayerControlSystem extends System {
   }
 
   /// The velocity of what [body] stands on, in world units a second: a
-  /// moving platform's ([MovingPlatformComponent.currentVelocity]), or any
+  /// moving platform's ([MovingPlatform2DComponent.currentVelocity]), or any
   /// other kinematic body's; zero for ground that does not move.
   ///
   /// Contact friction alone does not carry a character on a moving platform —
@@ -366,15 +366,15 @@ class PlayerControlSystem extends System {
   /// ground is what makes standing still on a moving platform actually mean
   /// standing still: the run speed is worked out from the velocity less
   /// this, and this is added back.
-  static Offset groundVelocityOf(RigidBody2D body) {
+  static Offset groundVelocityOf(RigidBody2DComponent body) {
     final ground = body.groundEntity;
     if (ground == null || !ground.isAlive) return Offset.zero;
-    final platform = ground.getComponent<MovingPlatformComponent>();
+    final platform = ground.getComponent<MovingPlatform2DComponent>();
     if (platform != null) {
       return platform.isMoving ? platform.currentVelocity : Offset.zero;
     }
-    final rigid = ground.getComponent<RigidBody2D>();
-    return rigid != null && rigid.bodyType == BodyType.kinematic
+    final rigid = ground.getComponent<RigidBody2DComponent>();
+    return rigid != null && rigid.bodyType == Body2DType.kinematic
         ? rigid.linearVelocity
         : Offset.zero;
   }
@@ -394,7 +394,7 @@ class PlayerControlSystem extends System {
   static void bounce(Entity entity, {double? speed}) {
     final control = entity.getComponent<PlayerControlComponent>();
     if (control == null) return;
-    final character = entity.getComponent<CharacterBody2D>();
+    final character = entity.getComponent<CharacterBody2DComponent>();
     final velocity = entity.getComponent<VelocityComponent>();
     if (character != null) {
       launch(character, speed ?? control.stompBounceSpeed);

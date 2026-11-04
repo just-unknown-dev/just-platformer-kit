@@ -10,7 +10,7 @@ import 'package:just_game_engine/just_game_engine.dart';
 /// the rectangle-only equivalent that works on ordinary world-space entities,
 /// so a template with no art still reads as having a background.
 ///
-/// Attach only to entities with no [Collider2D] — this rewrites the
+/// Attach only to entities with no [Collider2DComponent] — this rewrites the
 /// transform every frame and would fight the physics sync.
 class ParallaxRectComponent extends Component {
   ParallaxRectComponent({this.scrollFactorX = 0.5, this.scrollFactorY = 0.5});

@@ -15,7 +15,7 @@ Entity _player(World world, {double x = 0, double y = 0}) =>
     world.createEntityWithComponents([
       TransformComponent(position: Vector3(x, y, 0)),
       VelocityComponent(),
-      RigidBody2D(lockRotation: true), Collider2D(size: Vector2(32, 48)),
+      RigidBody2DComponent(lockRotation: true), Collider2DComponent(size: Vector2(32, 48)),
       PlayerControlComponent(),
       InputComponent(),
       HealthComponent(maxHealth: 3),
@@ -71,7 +71,7 @@ void main() {
     test('decelerates to a full stop when input is released', () {
       final input = player.getComponent<InputComponent>()!
         ..setVector('move', const Offset(1, 0));
-      final bodyComp = player.getComponent<RigidBody2D>()!
+      final bodyComp = player.getComponent<RigidBody2DComponent>()!
         ..isGrounded = true;
 
       for (var i = 0; i < 30; i++) {
@@ -105,7 +105,7 @@ void main() {
     late Entity player;
     late InputComponent input;
     late PlayerControlComponent control;
-    late RigidBody2D bodyComp;
+    late RigidBody2DComponent bodyComp;
     late VelocityComponent velocity;
 
     setUp(() {
@@ -114,7 +114,7 @@ void main() {
       player = _player(world);
       input = player.getComponent<InputComponent>()!;
       control = player.getComponent<PlayerControlComponent>()!;
-      bodyComp = player.getComponent<RigidBody2D>()!;
+      bodyComp = player.getComponent<RigidBody2DComponent>()!;
       velocity = player.getComponent<VelocityComponent>()!;
     });
 
@@ -260,12 +260,12 @@ void main() {
     });
   });
 
-  group('MovingPlatformSystem', () {
+  group('MovingPlatform2DSystem', () {
     late World world;
 
     setUp(() {
       world = World()..initialize();
-      world.addSystem(MovingPlatformSystem());
+      world.addSystem(MovingPlatform2DSystem());
     });
 
     Entity platform({
@@ -277,7 +277,7 @@ void main() {
         position: Vector3(waypoints.first.dx, waypoints.first.dy, 0),
       ),
       VelocityComponent(),
-      MovingPlatformComponent(
+      MovingPlatform2DComponent(
         waypoints: waypoints,
         speed: speed,
         loopMode: loop,
@@ -309,7 +309,7 @@ void main() {
 
     test('ping-pong reverses at the end of the path', () {
       final entity = platform(waypoints: const [Offset(0, 0), Offset(100, 0)]);
-      final component = entity.getComponent<MovingPlatformComponent>()!;
+      final component = entity.getComponent<MovingPlatform2DComponent>()!;
       final transform = entity.getComponent<TransformComponent>()!;
 
       expect(component.targetIndex, 1);
@@ -327,7 +327,7 @@ void main() {
         waypoints: const [Offset(0, 0), Offset(100, 0), Offset(200, 0)],
         loop: PlatformLoopMode.loop,
       );
-      final component = entity.getComponent<MovingPlatformComponent>()!;
+      final component = entity.getComponent<MovingPlatform2DComponent>()!;
       final transform = entity.getComponent<TransformComponent>()!;
 
       transform.setPositionXY(200, 0);
@@ -342,7 +342,7 @@ void main() {
         waypoints: const [Offset(0, 0), Offset(100, 0)],
         loop: PlatformLoopMode.once,
       );
-      final component = entity.getComponent<MovingPlatformComponent>()!;
+      final component = entity.getComponent<MovingPlatform2DComponent>()!;
       final transform = entity.getComponent<TransformComponent>()!;
 
       transform.setPositionXY(100, 0);
@@ -375,7 +375,7 @@ void main() {
     Entity sensor(List<Component> extra, {double x = 0, double y = 0}) =>
         world.createEntityWithComponents([
           TransformComponent(position: Vector3(x, y, 0)),
-          RigidBody2D(isSensor: true), Collider2D(size: Vector2(32, 32)),
+          RigidBody2DComponent(isSensor: true), Collider2DComponent(size: Vector2(32, 32)),
           ...extra,
         ]);
 
@@ -453,7 +453,7 @@ void main() {
 
     Entity hazard(HazardComponent h) => world.createEntityWithComponents([
       TransformComponent(position: Vector3.zero()),
-      RigidBody2D(isSensor: true), Collider2D(size: Vector2(32, 32)),
+      RigidBody2DComponent(isSensor: true), Collider2DComponent(size: Vector2(32, 32)),
       h,
     ]);
 
@@ -565,7 +565,7 @@ void main() {
     test('a crumbling platform collapses then comes back', () {
       final platform = world.createEntityWithComponents([
         TransformComponent(position: Vector3(0, 100, 0)),
-        RigidBody2D(bodyType: BodyType.static), Collider2D(size: Vector2(100, 20)),
+        RigidBody2DComponent(bodyType: Body2DType.static), Collider2DComponent(size: Vector2(100, 20)),
         PlatformComponent(
           kind: PlatformKind.crumbling,
           crumbleDelay: 0.1,
@@ -573,7 +573,7 @@ void main() {
         ),
       ], name: 'Crumble');
       final component = platform.getComponent<PlatformComponent>()!;
-      final bodyComp = platform.getComponent<RigidBody2D>()!;
+      final bodyComp = platform.getComponent<RigidBody2DComponent>()!;
 
       world.events.fire(
         CollisionEnter2DEvent(
@@ -605,12 +605,12 @@ void main() {
     // promises — the zoom applies inside, the zone is where its entity is,
     // overlapping zones are settled by priority, a locked axis does not scroll.
     late World world;
-    late CameraSystem cameras;
+    late CameraEngine cameras;
     late Entity player;
 
     setUp(() {
       world = World()..initialize();
-      cameras = CameraSystem()..initialize();
+      cameras = CameraEngine()..initialize();
       cameras.mainCamera.viewportSize = const Size(800, 600);
       cameras.brain.defaultBlend = CameraBlend.cut;
       registerCameraSystems(world, cameras);

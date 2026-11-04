@@ -38,7 +38,7 @@
       "GoalComponent",
       "HazardComponent",
       "LevelBoundsComponent",
-      "MovingPlatformComponent",
+      "MovingPlatform2DComponent",
       "ParallaxRectComponent",
       "PatrolEnemyComponent",
       "PlatformComponent",
@@ -53,7 +53,7 @@
     ],
     "setup": {
       "file": "lib/game/boot/game_boot.dart",
-      "snippet": "PlatformerKit.registerSystems(\n  engine.world,\n  physics: engine.physics,\n  camera: engine.cameraSystem.mainCamera,\n);"
+      "snippet": "PlatformerKit.registerSystems(\n  engine.world,\n  physics: engine.physics,\n  camera: engine.camera.mainCamera,\n);"
     }
   },
   "schema": 1,

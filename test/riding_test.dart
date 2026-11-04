@@ -8,17 +8,17 @@ import 'package:just_platformer_kit/just_platformer_kit.dart';
 
 void main() {
   for (final (name, make) in [
-    ('native Box2D', () => PhysicsEngine()..initialize()),
-    ('pure Dart', () => PhysicsEngine.pureDart()..initialize()),
+    ('native Box2D', () => Physics2DEngine()..initialize()),
+    ('pure Dart', () => Physics2DEngine.pureDart()..initialize()),
   ]) {
     group(name, () => _riding(make));
   }
 
-  group('MovingPlatformSystem', () {
+  group('MovingPlatform2DSystem', () {
     late World world;
     setUp(() {
       world = World()..initialize();
-      world.addSystem(MovingPlatformSystem());
+      world.addSystem(MovingPlatform2DSystem());
     });
     tearDown(() => world.dispose());
 
@@ -26,7 +26,7 @@ void main() {
         world.createEntityWithComponents([
           TransformComponent(position: Vector3(0, 0, 0)),
           VelocityComponent(),
-          MovingPlatformComponent(
+          MovingPlatform2DComponent(
             waypoints: const [Offset(0, 0), Offset(100, 0)],
             autoStart: autoStart,
             pauseSeconds: pause,
@@ -35,7 +35,7 @@ void main() {
 
     test('one that does not start by itself waits until it is started', () {
       final p = platform(autoStart: false);
-      final component = p.getComponent<MovingPlatformComponent>()!;
+      final component = p.getComponent<MovingPlatform2DComponent>()!;
       final velocity = p.getComponent<VelocityComponent>()!;
       expect(component.isMoving, isFalse);
       for (var i = 0; i < 60; i++) {
@@ -52,7 +52,7 @@ void main() {
       final p = platform();
       p.getComponent<TransformComponent>()!.setPositionXY(100, 0);
       world.update(1 / 60);
-      final component = p.getComponent<MovingPlatformComponent>()!;
+      final component = p.getComponent<MovingPlatform2DComponent>()!;
       expect(component.targetIndex, 0);
       expect(p.getComponent<VelocityComponent>()!.velocity.x, closeTo(-120, 1e-6));
       expect(component.currentVelocity.dx, closeTo(-120, 1e-6), reason: 'units a second');
@@ -63,22 +63,22 @@ void main() {
       p.getComponent<TransformComponent>()!.setPositionXY(100, 0);
       world.update(1 / 60);
       expect(p.getComponent<VelocityComponent>()!.velocity.x, 0);
-      expect(p.getComponent<MovingPlatformComponent>()!.currentVelocity, Offset.zero);
+      expect(p.getComponent<MovingPlatform2DComponent>()!.currentVelocity, Offset.zero);
     });
 
     test('a platform with no velocity component is not driven', () {
       final p = world.createEntityWithComponents([
         TransformComponent(),
-        MovingPlatformComponent(waypoints: const [Offset(0, 0), Offset(100, 0)]),
+        MovingPlatform2DComponent(waypoints: const [Offset(0, 0), Offset(100, 0)]),
       ]);
       world.update(1 / 60);
-      expect(p.getComponent<MovingPlatformComponent>()!.currentVelocity, Offset.zero);
+      expect(p.getComponent<MovingPlatform2DComponent>()!.currentVelocity, Offset.zero);
     });
   });
 }
 
-void _riding(PhysicsEngine Function() make) {
-  late PhysicsEngine physics;
+void _riding(Physics2DEngine Function() make) {
+  late Physics2DEngine physics;
   late World world;
 
   setUp(() {
@@ -86,8 +86,8 @@ void _riding(PhysicsEngine Function() make) {
     world = World()..initialize();
     world
       ..addSystem(PlayerControlSystem())
-      ..addSystem(MovingPlatformSystem())
-      ..addSystem(PhysicsSystem(physics));
+      ..addSystem(MovingPlatform2DSystem())
+      ..addSystem(Physics2DSystem(physics));
   });
   tearDown(() {
     world.dispose();
@@ -96,17 +96,17 @@ void _riding(PhysicsEngine Function() make) {
 
   Entity lift(List<Offset> path) => world.createEntityWithComponents([
     TransformComponent(position: Vector3(path.first.dx, path.first.dy, 0)),
-    RigidBody2D(bodyType: BodyType.kinematic, lockRotation: true, friction: 0.2),
-    Collider2D(size: Vector2(300, 20)),
+    RigidBody2DComponent(bodyType: Body2DType.kinematic, lockRotation: true, friction: 0.2),
+    Collider2DComponent(size: Vector2(300, 20)),
     VelocityComponent(),
-    MovingPlatformComponent(waypoints: path, speed: 120),
+    MovingPlatform2DComponent(waypoints: path, speed: 120),
   ], name: 'Lift');
 
   /// The template's player, standing on a lift whose top is at y = 190.
   Entity player() => world.createEntityWithComponents([
     TransformComponent(position: Vector3(0, 165, 0)),
     VelocityComponent(),
-    RigidBody2D(
+    RigidBody2DComponent(
       mass: 1,
       friction: 0.2,
       restitution: 0,
@@ -114,7 +114,7 @@ void _riding(PhysicsEngine Function() make) {
       angularDamping: 0,
       lockRotation: true,
     ),
-    Collider2D(size: Vector2(32, 48)),
+    Collider2DComponent(size: Vector2(32, 48)),
     PlayerControlComponent(),
     InputComponent(),
     TagComponent(PlatformerTags.player),

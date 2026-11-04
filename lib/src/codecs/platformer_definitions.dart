@@ -18,9 +18,9 @@ import '../components/platformer.dart';
 ///
 /// Every platformer component is for 2-D scenes (`Dimensions.twoD`): an
 /// editor does not offer them in a 3-D one.
-abstract final class PlatformerSchemas {
-  static ComponentSchema<PatrolEnemyComponent> get patrolEnemy =>
-      ComponentSchema<PatrolEnemyComponent>(
+abstract final class PlatformerDefinitions {
+  static ComponentDefinition<PatrolEnemyComponent> get patrolEnemy =>
+      ComponentDefinition<PatrolEnemyComponent>(
         type: 'PatrolEnemyComponent',
         hints: ComponentHints(
           dimensions: Dimensions.twoD,
@@ -63,7 +63,7 @@ abstract final class PlatformerSchemas {
         id: 'patrol_enemy_a10f3d62',
         create: PatrolEnemyComponent.new,
         fields: [
-          SchemaField(
+          FieldDefinition(
             name: 'behaviour',
             kind: const EnumFieldType(
               EnemyBehaviour.values,
@@ -79,7 +79,7 @@ abstract final class PlatformerSchemas {
             (c) => (c as PatrolEnemyComponent).speed,
             (c, v) => (c as PatrolEnemyComponent).speed = v,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'patrolRange',
             kind: FieldTypes.decimal,
             read: (c) => (c as PatrolEnemyComponent).patrolRange,
@@ -87,7 +87,7 @@ abstract final class PlatformerSchemas {
                 (c as PatrolEnemyComponent).patrolRange = (v as num).toDouble(),
             min: 0,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'aggroRange',
             kind: FieldTypes.decimal,
             read: (c) => (c as PatrolEnemyComponent).aggroRange,
@@ -95,7 +95,7 @@ abstract final class PlatformerSchemas {
                 (c as PatrolEnemyComponent).aggroRange = (v as num).toDouble(),
             min: 0,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'turnAtLedge',
             kind: FieldTypes.boolean,
             read: (c) => (c as PatrolEnemyComponent).turnAtLedge,
@@ -112,7 +112,7 @@ abstract final class PlatformerSchemas {
             (c) => (c as PatrolEnemyComponent).invulnerabilitySeconds,
             (c, v) => (c as PatrolEnemyComponent).invulnerabilitySeconds = v,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'stompable',
             kind: FieldTypes.boolean,
             read: (c) => (c as PatrolEnemyComponent).stompable,
@@ -121,8 +121,8 @@ abstract final class PlatformerSchemas {
         ],
       );
 
-  static ComponentSchema<HazardComponent> get hazard =>
-      ComponentSchema<HazardComponent>(
+  static ComponentDefinition<HazardComponent> get hazard =>
+      ComponentDefinition<HazardComponent>(
         type: 'HazardComponent',
         hints: ComponentHints(
           dimensions: Dimensions.twoD,
@@ -149,7 +149,7 @@ abstract final class PlatformerSchemas {
         id: 'hazard_5c1ab773',
         create: HazardComponent.new,
         fields: [
-          SchemaField(
+          FieldDefinition(
             name: 'damage',
             kind: FieldTypes.decimal,
             read: (c) => (c as HazardComponent).damage,
@@ -157,20 +157,20 @@ abstract final class PlatformerSchemas {
                 (c as HazardComponent).damage = (v as num).toDouble(),
             min: 0,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'instantKill',
             kind: FieldTypes.boolean,
             read: (c) => (c as HazardComponent).instantKill,
             write: (c, v) => (c as HazardComponent).instantKill = v as bool,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'knockback',
             kind: FieldTypes.offset,
             read: (c) => (c as HazardComponent).knockback,
             write: (c, v) => (c as HazardComponent).knockback =
                 (v as Offset?) ?? Offset.zero,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'invulnerabilitySeconds',
             kind: FieldTypes.decimal,
             read: (c) => (c as HazardComponent).invulnerabilitySeconds,
@@ -178,7 +178,7 @@ abstract final class PlatformerSchemas {
                 (v as num).toDouble(),
             min: 0,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'respawnOnHit',
             kind: FieldTypes.boolean,
             read: (c) => (c as HazardComponent).respawnOnHit,
@@ -187,8 +187,8 @@ abstract final class PlatformerSchemas {
         ],
       );
 
-  static ComponentSchema<CollectibleComponent> get collectible =>
-      ComponentSchema<CollectibleComponent>(
+  static ComponentDefinition<CollectibleComponent> get collectible =>
+      ComponentDefinition<CollectibleComponent>(
         type: 'CollectibleComponent',
         hints: const ComponentHints(
           dimensions: Dimensions.twoD,
@@ -206,21 +206,21 @@ abstract final class PlatformerSchemas {
         id: 'collectible_9d20fe45',
         create: CollectibleComponent.new,
         fields: [
-          SchemaField(
+          FieldDefinition(
             name: 'kind',
             kind: FieldTypes.text,
             read: (c) => (c as CollectibleComponent).kind,
             write: (c, v) =>
                 (c as CollectibleComponent).kind = (v as String?) ?? 'coin',
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'value',
             kind: FieldTypes.integer,
             read: (c) => (c as CollectibleComponent).value,
             write: (c, v) =>
                 (c as CollectibleComponent).value = (v as num).toInt(),
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'destroyOnCollect',
             kind: FieldTypes.boolean,
             read: (c) => (c as CollectibleComponent).destroyOnCollect,
@@ -230,8 +230,8 @@ abstract final class PlatformerSchemas {
         ],
       );
 
-  static ComponentSchema<GoalComponent> get goal =>
-      ComponentSchema<GoalComponent>(
+  static ComponentDefinition<GoalComponent> get goal =>
+      ComponentDefinition<GoalComponent>(
         type: 'GoalComponent',
         hints: const ComponentHints(
           dimensions: Dimensions.twoD,
@@ -248,7 +248,7 @@ abstract final class PlatformerSchemas {
         id: 'goal_4e7cb018',
         create: GoalComponent.new,
         fields: [
-          SchemaField(
+          FieldDefinition(
             name: 'nextScene',
             kind: FieldTypes.text,
             read: (c) => (c as GoalComponent).nextScene ?? '',
@@ -259,7 +259,7 @@ abstract final class PlatformerSchemas {
               (c as GoalComponent).nextScene = name.isEmpty ? null : name;
             },
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'requiresAllCollectibles',
             kind: FieldTypes.boolean,
             read: (c) => (c as GoalComponent).requiresAllCollectibles,
@@ -269,8 +269,8 @@ abstract final class PlatformerSchemas {
         ],
       );
 
-  static ComponentSchema<LevelBoundsComponent> get levelBounds =>
-      ComponentSchema<LevelBoundsComponent>(
+  static ComponentDefinition<LevelBoundsComponent> get levelBounds =>
+      ComponentDefinition<LevelBoundsComponent>(
         type: 'LevelBoundsComponent',
         hints: const ComponentHints(
           dimensions: Dimensions.twoD,
@@ -349,8 +349,8 @@ abstract final class PlatformerSchemas {
         ],
       );
 
-  static ComponentSchema<ParallaxRectComponent> get parallaxRect =>
-      ComponentSchema<ParallaxRectComponent>(
+  static ComponentDefinition<ParallaxRectComponent> get parallaxRect =>
+      ComponentDefinition<ParallaxRectComponent>(
         type: 'ParallaxRectComponent',
         hints: const ComponentHints(
           dimensions: Dimensions.twoD,
@@ -392,8 +392,8 @@ abstract final class PlatformerSchemas {
         ],
       );
 
-  static ComponentSchema<PlatformComponent> get platform =>
-      ComponentSchema<PlatformComponent>(
+  static ComponentDefinition<PlatformComponent> get platform =>
+      ComponentDefinition<PlatformComponent>(
         type: 'PlatformComponent',
         hints: ComponentHints(
           dimensions: Dimensions.twoD,
@@ -429,7 +429,7 @@ abstract final class PlatformerSchemas {
         id: 'platform_7f31c0a2',
         create: PlatformComponent.new,
         fields: [
-          SchemaField(
+          FieldDefinition(
             name: 'kind',
             kind: const EnumFieldType(
               PlatformKind.values,
@@ -439,7 +439,7 @@ abstract final class PlatformerSchemas {
             read: (c) => (c as PlatformComponent).kind,
             write: (c, v) => (c as PlatformComponent).kind = v as PlatformKind,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'crumbleDelay',
             kind: FieldTypes.decimal,
             read: (c) => (c as PlatformComponent).crumbleDelay,
@@ -447,7 +447,7 @@ abstract final class PlatformerSchemas {
                 (c as PlatformComponent).crumbleDelay = (v as num).toDouble(),
             min: 0,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'respawnDelay',
             kind: FieldTypes.decimal,
             read: (c) => (c as PlatformComponent).respawnDelay,
@@ -455,7 +455,7 @@ abstract final class PlatformerSchemas {
                 (c as PlatformComponent).respawnDelay = (v as num).toDouble(),
             min: 0,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'bounceImpulse',
             kind: FieldTypes.decimal,
             read: (c) => (c as PlatformComponent).bounceImpulse,
@@ -466,9 +466,9 @@ abstract final class PlatformerSchemas {
         ],
       );
 
-  static ComponentSchema<MovingPlatformComponent> get movingPlatform =>
-      ComponentSchema<MovingPlatformComponent>(
-        type: 'MovingPlatformComponent',
+  static ComponentDefinition<MovingPlatform2DComponent> get movingPlatform =>
+      ComponentDefinition<MovingPlatform2DComponent>(
+        type: 'MovingPlatform2DComponent',
         hints: const ComponentHints(
           dimensions: Dimensions.twoD,
           name: 'Moving platform',
@@ -491,55 +491,55 @@ abstract final class PlatformerSchemas {
           },
         ),
         id: 'moving_platform_2b84de10',
-        create: MovingPlatformComponent.new,
+        create: MovingPlatform2DComponent.new,
         fields: [
-          SchemaField(
+          FieldDefinition(
             name: 'waypoints',
             kind: FieldTypes.offsetList,
-            read: (c) => (c as MovingPlatformComponent).waypoints,
-            write: (c, v) => (c as MovingPlatformComponent).waypoints
+            read: (c) => (c as MovingPlatform2DComponent).waypoints,
+            write: (c, v) => (c as MovingPlatform2DComponent).waypoints
               ..clear()
               ..addAll((v as List?)?.cast<Offset>() ?? const []),
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'speed',
             kind: FieldTypes.decimal,
-            read: (c) => (c as MovingPlatformComponent).speed,
+            read: (c) => (c as MovingPlatform2DComponent).speed,
             write: (c, v) =>
-                (c as MovingPlatformComponent).speed = (v as num).toDouble(),
+                (c as MovingPlatform2DComponent).speed = (v as num).toDouble(),
             min: 0,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'loopMode',
             kind: const EnumFieldType(
               PlatformLoopMode.values,
               fallback: PlatformLoopMode.pingPong,
               id: 'platformer.platformLoopMode',
             ),
-            read: (c) => (c as MovingPlatformComponent).loopMode,
-            write: (c, v) =>
-                (c as MovingPlatformComponent).loopMode = v as PlatformLoopMode,
+            read: (c) => (c as MovingPlatform2DComponent).loopMode,
+            write: (c, v) => (c as MovingPlatform2DComponent).loopMode =
+                v as PlatformLoopMode,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'pauseSeconds',
             kind: FieldTypes.decimal,
-            read: (c) => (c as MovingPlatformComponent).pauseSeconds,
-            write: (c, v) => (c as MovingPlatformComponent).pauseSeconds =
+            read: (c) => (c as MovingPlatform2DComponent).pauseSeconds,
+            write: (c, v) => (c as MovingPlatform2DComponent).pauseSeconds =
                 (v as num).toDouble(),
             min: 0,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'autoStart',
             kind: FieldTypes.boolean,
-            read: (c) => (c as MovingPlatformComponent).autoStart,
+            read: (c) => (c as MovingPlatform2DComponent).autoStart,
             write: (c, v) =>
-                (c as MovingPlatformComponent).autoStart = v as bool,
+                (c as MovingPlatform2DComponent).autoStart = v as bool,
           ),
         ],
       );
 
-  static ComponentSchema<PlayerControlComponent> get playerControl =>
-      ComponentSchema<PlayerControlComponent>(
+  static ComponentDefinition<PlayerControlComponent> get playerControl =>
+      ComponentDefinition<PlayerControlComponent>(
         type: 'PlayerControlComponent',
         hints: const ComponentHints(
           dimensions: Dimensions.twoD,
@@ -667,7 +667,7 @@ abstract final class PlatformerSchemas {
             (c) => (c as PlayerControlComponent).maxFallSpeed,
             (c, v) => (c as PlayerControlComponent).maxFallSpeed = v,
           ),
-          SchemaField(
+          FieldDefinition(
             name: 'maxJumps',
             kind: FieldTypes.integer,
             read: (c) => (c as PlayerControlComponent).maxJumps,
@@ -709,7 +709,7 @@ abstract final class PlatformerSchemas {
         ],
       );
 
-  /// Every schema above.
+  /// Every definition above.
   static List<ComponentCodec> get all => [
     patrolEnemy,
     hazard,
@@ -724,12 +724,12 @@ abstract final class PlatformerSchemas {
 }
 
 /// A non-negative decimal, the most common field in the kit.
-SchemaField _decimal(
+FieldDefinition _decimal(
   String name,
   Object? Function(Component component) read,
   void Function(Component component, double value) write, {
   double min = 0,
-}) => SchemaField(
+}) => FieldDefinition(
   name: name,
   kind: FieldTypes.decimal,
   read: read,

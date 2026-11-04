@@ -10,7 +10,7 @@ export 'collectible_component.dart';
 export 'goal_component.dart';
 export 'hazard_component.dart';
 export 'level_bounds_component.dart';
-export 'moving_platform_component.dart';
+export 'moving_platform_2d_component.dart';
 export 'parallax_rect_component.dart';
 export 'patrol_enemy_component.dart';
 export 'platform_component.dart';

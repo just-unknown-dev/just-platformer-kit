@@ -80,8 +80,8 @@ void main() {
     expect(count<VirtualCameraComponent>(), 2);
     expect(count<LayerComponent>(), 25);
     expect(count<PlatformComponent>(), 22);
-    expect(count<Collider2D>(), 23);
-    expect(count<RigidBody2D>(), 23);
+    expect(count<Collider2DComponent>(), 23);
+    expect(count<RigidBody2DComponent>(), 23);
     expect(count<PlayerControlComponent>(), 1);
     // The old camera zone is now a shot with a trigger around it.
     expect(count<CameraTriggerComponent>(), 1);
@@ -134,11 +134,11 @@ void main() {
           reason: entity.name,
         );
       }
-      final rect = raw('RectangleComponent');
+      final rect = raw('Rectangle2DComponent');
       if (rect != null) {
         // Shapes are stored under RenderableComponent, so read the list
-        // rather than getComponent<RectangleComponent>.
-        final r = entity.components.whereType<RectangleComponent>().single;
+        // rather than getComponent<Rectangle2DComponent>.
+        final r = entity.components.whereType<Rectangle2DComponent>().single;
         expect(r.width, (rect['width'] as num).toDouble(), reason: entity.name);
         expect(
           r.height,
@@ -150,9 +150,9 @@ void main() {
   });
 
   test('an unregistered component type stops the load and names itself', () {
-    // A bare world: the engine's own components, the kit's deliberately
-    // missing.
-    final world = World()..initialize();
+    // The engine's own components, the kit's deliberately missing.
+    final world = World(extensions: [BuiltInComponents.extension])
+      ..initialize();
     addTearDown(world.dispose);
 
     expect(

@@ -70,7 +70,15 @@ abstract final class PlatformerMigrations {
           (entity, scene) =>
               cameraZone(entity, scene, definitions: definitions),
         );
+    context.migrations.renamedTypes.addAll(renamedTypes);
   }
+
+  /// v10 → v11: the kit's components renamed when every component's name
+  /// came to end in `Component`, tagged 2D when it also has a 3-D version
+  /// (the third-person kit's moving platform). Old name → new.
+  static const Map<String, String> renamedTypes = {
+    'MovingPlatformComponent': 'MovingPlatform2DComponent',
+  };
 
   /// v1 → v2: `CameraZoneComponent` becomes what [PlatformerCamera.zone]
   /// builds — a virtual camera, its framing and a trigger — written with
@@ -92,7 +100,7 @@ abstract final class PlatformerMigrations {
         (f[key] as num?)?.toDouble() ?? fallback;
 
     // Only the engine's own camera components are written here.
-    final registry = definitions ?? ComponentDefinitionRegistry.core();
+    final registry = definitions ?? BuiltInComponents.registry();
     components
       ..removeAt(index)
       ..insertAll(index, [

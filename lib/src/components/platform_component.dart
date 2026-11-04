@@ -10,7 +10,7 @@ enum PlatformKind {
   solid,
 
   /// Jump-through: solid only from the direction the collider was configured
-  /// for. Backed by [Collider2D.oneWay].
+  /// for. Backed by [Collider2DComponent.oneWay].
   oneWay,
 
   /// Collapses a short time after being stepped on, then respawns.
@@ -22,7 +22,7 @@ enum PlatformKind {
 
 /// Marks an entity as level geometry and says how it behaves underfoot.
 ///
-/// This is deliberately separate from [RigidBody2D]: the body says
+/// This is deliberately separate from [RigidBody2DComponent]: the body says
 /// *how it collides*, this says *what it means in the game*. The level editor
 /// keys its prefab palette and layer tinting off this, and
 /// `PlatformerGameplaySystem` reads it to drive crumble and bounce.
@@ -60,7 +60,7 @@ class PlatformComponent extends Component {
   bool isCollapsed = false;
 
   /// What its body collided with before it collapsed, given back when it
-  /// returns (`RigidBody2D.collidesWith`; null, the project's
+  /// returns (`RigidBody2DComponent.collidesWith`; null, the project's
   /// grid).
   int? collidesBeforeCollapse;
 

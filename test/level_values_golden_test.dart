@@ -21,10 +21,10 @@ final _context = EngineContext(extensions: [PlatformerKit.extension]);
 
 Map<String, dynamic> _values(Component c) {
   final codec = _context.definitions.forComponent(c);
-  // Schemas, and the camera components, are read field by field; the rest
-  // of the core set keeps the hand-picked values below.
+  // Definitions with an id, and the camera components, are read field by
+  // field; the rest of the core set keeps the hand-picked values below.
   if (codec is ComponentDefinition &&
-      (codec is ComponentSchema ||
+      (codec.id != null ||
           c is VirtualCameraComponent ||
           c.runtimeType.toString().startsWith('Camera'))) {
     return {
@@ -40,7 +40,7 @@ Map<String, dynamic> _values(Component c) {
       'scaleX': t.scale.x,
       'scaleY': t.scale.y,
     },
-    RectangleComponent r => {
+    Rectangle2DComponent r => {
       'width': r.width,
       'height': r.height,
       'filled': r.filled,
@@ -71,10 +71,10 @@ Map<String, dynamic> _values(Component c) {
 
 /// A rigid body and its collider as the one body they were when the
 /// goldens were written: the same values, under the old names.
-Map<String, dynamic> _body(RigidBody2D b, Collider2D c) => {
+Map<String, dynamic> _body(RigidBody2DComponent b, Collider2DComponent c) => {
   'shape': switch (c.shape) {
-    ColliderShape2D.box => {'kind': 'rectangle', 'w': c.size.x, 'h': c.size.y},
-    ColliderShape2D.circle => {'kind': 'circle', 'r': c.radius},
+    Collider2DShape.box => {'kind': 'rectangle', 'w': c.size.x, 'h': c.size.y},
+    Collider2DShape.circle => {'kind': 'circle', 'r': c.radius},
     final s => {'kind': s.name},
   },
   'mass': b.mass,
@@ -99,8 +99,8 @@ List<Map<String, dynamic>> _snapshot(List<Entity> entities) => [
       'name': e.name,
       'components': {
         for (final c in e.components.sortedBy((c) => c.runtimeType.toString()))
-          if (c is! RigidBody2D && c is! Collider2D) c.runtimeType.toString(): _values(c),
-        if ((e.getComponent<RigidBody2D>(), e.getComponent<Collider2D>()) case (final b?, final c?))
+          if (c is! RigidBody2DComponent && c is! Collider2DComponent) c.runtimeType.toString(): _values(c),
+        if ((e.getComponent<RigidBody2DComponent>(), e.getComponent<Collider2DComponent>()) case (final b?, final c?))
           'PhysicsBodyComponent': _body(b, c),
       },
     },

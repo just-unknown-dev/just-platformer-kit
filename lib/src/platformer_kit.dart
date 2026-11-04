@@ -4,7 +4,7 @@ import 'package:just_game_engine/just_game_engine.dart';
 
 import 'camera/platformer_camera.dart';
 import 'components/player_control_component.dart';
-import 'codecs/platformer_schemas.dart';
+import 'codecs/platformer_definitions.dart';
 import 'systems/platformer.dart';
 import 'map/platformer_collision_kinds.dart';
 
@@ -14,7 +14,7 @@ import 'map/platformer_collision_kinds.dart';
 /// added in does not matter — but adding them as a set does, because they
 /// depend on each other: [PlatformerGameplaySystem] reads the grounded state
 /// [PlayerControlSystem] writes, and both consume the collision events the
-/// engine's `PhysicsSystem` publishes. Leaving one out breaks the others
+/// engine's `Physics2DSystem` publishes. Leaving one out breaks the others
 /// quietly rather than loudly.
 abstract final class PlatformerKit {
   /// What the kit teaches an engine: how to save and load every platformer
@@ -31,7 +31,9 @@ abstract final class PlatformerKit {
 
   /// Installs the kit into [context]; what [extension] does.
   static void install(EngineContext context) {
-    context.definitions.registerAll(PlatformerSchemas.all, ifAbsent: true);
+    // Its levels use the engine's own components too.
+    context.install(BuiltInComponents.extension);
+    context.definitions.registerAll(PlatformerDefinitions.all, ifAbsent: true);
     // Levels saved by an older kit are brought forward as they load.
     PlatformerMigrations.install(context);
     registerAnimatorBindings(context.animatorBindings);
@@ -55,7 +57,7 @@ abstract final class PlatformerKit {
       // A character's own velocity; a rigid body's, through its velocity
       // component.
       final vy =
-          e.getComponent<CharacterBody2D>()?.velocity.dy ??
+          e.getComponent<CharacterBody2DComponent>()?.velocity.dy ??
           e.getComponent<VelocityComponent>()?.velocity.y ??
           0;
       return !control.isGrounded && vy > 0;
@@ -74,7 +76,7 @@ abstract final class PlatformerKit {
   /// twice would run every rule twice a frame.
   static void registerSystems(
     World world, {
-    required PhysicsEngine physics,
+    required Physics2DEngine physics,
     required GameCamera camera,
     String moveAction = 'move',
     String jumpAction = 'jump',
@@ -97,14 +99,14 @@ abstract final class PlatformerKit {
   /// parallax is measured against; [moveAction] and [jumpAction] name the
   /// input actions the player controller reads.
   static List<System> systems({
-    required PhysicsEngine physics,
+    required Physics2DEngine physics,
     required GameCamera camera,
     String moveAction = 'move',
     String jumpAction = 'jump',
   }) => [
     PlayerControlSystem(moveAction: moveAction, jumpAction: jumpAction),
     PlatformerGameplaySystem(physics: physics),
-    MovingPlatformSystem(),
+    MovingPlatform2DSystem(),
     PatrolEnemySystem(physics: physics),
     ParallaxRectSystem(camera: camera),
   ];
@@ -124,7 +126,7 @@ final class _PlatformerKitExtension implements RefreshableExtension {
   /// migrations, which append, are left as installed.
   @override
   void refresh(EngineContext context) {
-    context.definitions.refresh(PlatformerSchemas.all);
+    context.definitions.refresh(PlatformerDefinitions.all);
     PlatformerKit.registerAnimatorBindings(context.animatorBindings);
     PlatformerCollisionKinds.register(context.collisionKinds);
   }

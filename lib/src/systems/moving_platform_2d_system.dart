@@ -15,13 +15,13 @@ import '../components/platformer.dart';
 /// it without imparting any motion, so riders would be left hanging in the air
 /// and the platform would shove them out of the way on the next step. Velocity
 /// keeps the contact physically meaningful, and [PlayerControlSystem] carries
-/// a player standing on it at its [MovingPlatformComponent.currentVelocity].
+/// a player standing on it at its [MovingPlatform2DComponent.currentVelocity].
 ///
 /// Runs at [SystemPriorities.movingPlatform] (92), above physics, so this
 /// frame's velocity is in place before the step that acts on it. Stands
 /// still while time does (a `deltaTime` of 0: paused, or an editor
 /// authoring the level), so the level's saved velocities are left alone.
-class MovingPlatformSystem extends System {
+class MovingPlatform2DSystem extends System {
   @override
   int get priority => SystemPriorities.movingPlatform;
 
@@ -29,7 +29,7 @@ class MovingPlatformSystem extends System {
   List<Type> get requiredComponents => const [
     TransformComponent,
     VelocityComponent,
-    MovingPlatformComponent,
+    MovingPlatform2DComponent,
   ];
 
   @override
@@ -38,7 +38,7 @@ class MovingPlatformSystem extends System {
     forEach((entity) {
       if (!entity.isActive) return;
 
-      final platform = entity.getComponent<MovingPlatformComponent>()!;
+      final platform = entity.getComponent<MovingPlatform2DComponent>()!;
       final transform = entity.getComponent<TransformComponent>()!;
       final velocity = entity.getComponent<VelocityComponent>()!;
 
@@ -57,13 +57,13 @@ class MovingPlatformSystem extends System {
     });
   }
 
-  void _halt(MovingPlatformComponent platform, VelocityComponent velocity) {
+  void _halt(MovingPlatform2DComponent platform, VelocityComponent velocity) {
     platform.currentVelocity = Offset.zero;
     velocity.setVelocityXY(0, 0);
   }
 
   void _steer(
-    MovingPlatformComponent platform,
+    MovingPlatform2DComponent platform,
     TransformComponent transform,
     VelocityComponent velocity,
     double deltaTime,
@@ -101,7 +101,7 @@ class MovingPlatformSystem extends System {
 
   /// From [transform] to the waypoint [platform] is heading for.
   (double, double) _toTarget(
-    MovingPlatformComponent platform,
+    MovingPlatform2DComponent platform,
     TransformComponent transform,
   ) {
     final target =
@@ -113,7 +113,7 @@ class MovingPlatformSystem extends System {
   }
 
   /// Picks the next waypoint according to the loop mode.
-  void _advanceWaypoint(MovingPlatformComponent platform) {
+  void _advanceWaypoint(MovingPlatform2DComponent platform) {
     platform.pauseTimer = platform.pauseSeconds;
     final last = platform.waypoints.length - 1;
 

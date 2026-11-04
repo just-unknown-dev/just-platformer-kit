@@ -65,7 +65,7 @@ abstract final class PlatformerPrefabs {
     bool isStatic = true,
     bool isSensor = false,
     bool isOneWay = false,
-    jge.BodyType bodyType = jge.BodyType.dynamic,
+    jge.Body2DType bodyType = jge.Body2DType.dynamic,
     int layer = jge.LevelLayers.main,
     double strokeOpacity = 0.35,
   }) {
@@ -73,7 +73,7 @@ abstract final class PlatformerPrefabs {
       jge.TransformComponent(
         position: jge.Vector3(position.dx, position.dy, 0),
       ),
-      jge.RectangleComponent(
+      jge.Rectangle2DComponent(
         width: size.width,
         height: size.height,
         fillStyle: jge.ShapePaintStyle(color: color),
@@ -82,8 +82,8 @@ abstract final class PlatformerPrefabs {
         ),
         strokeWidth: 2,
       ),
-      jge.RigidBody2D(
-        bodyType: isStatic ? jge.BodyType.static : bodyType,
+      jge.RigidBody2DComponent(
+        bodyType: isStatic ? jge.Body2DType.static : bodyType,
         isSensor: isSensor,
         lockRotation: true,
         // What the kit's movement is tuned on, and what pieces placed before
@@ -95,7 +95,10 @@ abstract final class PlatformerPrefabs {
         angularDamping: 0,
       ),
       // The rectangle drawn, followed as it is resized.
-      jge.Collider2D(shape: jge.ColliderShape2D.matchShape, oneWay: isOneWay),
+      jge.Collider2DComponent(
+        shape: jge.Collider2DShape.matchShape,
+        oneWay: isOneWay,
+      ),
       jge.LayerComponent(layer: layer),
     ];
   }
@@ -148,11 +151,11 @@ abstract final class PlatformerPrefabs {
         size,
         color: movingColor,
         isStatic: false,
-        bodyType: jge.BodyType.kinematic,
+        bodyType: jge.Body2DType.kinematic,
       ),
       jge.VelocityComponent(),
       kit.PlatformComponent(),
-      kit.MovingPlatformComponent(
+      kit.MovingPlatform2DComponent(
         waypoints: [position, position + const Offset(240, 0)],
       ),
     ],
@@ -338,7 +341,7 @@ abstract final class PlatformerPrefabs {
       jge.TransformComponent(
         position: jge.Vector3(position.dx, position.dy, 0),
       ),
-      jge.RectangleComponent(
+      jge.Rectangle2DComponent(
         width: size.width,
         height: size.height,
         fillStyle: const jge.ShapePaintStyle(color: decorColor),

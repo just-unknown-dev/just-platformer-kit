@@ -4,7 +4,7 @@ import 'package:just_game_engine/just_game_engine.dart';
 
 /// The level exit. Reaching it completes the level.
 ///
-/// Expects a sensor [RigidBody2D]; `PlatformerGameplaySystem` fires
+/// Expects a sensor [RigidBody2DComponent]; `PlatformerGameplaySystem` fires
 /// [LevelCompletedEvent] on overlap.
 class GoalComponent extends Component {
   GoalComponent({this.nextScene, this.requiresAllCollectibles = false});

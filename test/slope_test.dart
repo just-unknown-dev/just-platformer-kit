@@ -10,7 +10,7 @@ const _t = 32.0;
 const _solid = 0, _up = 1;
 
 void main() {
-  late PhysicsEngine physics;
+  late Physics2DEngine physics;
   late World world;
   late Entity player;
 
@@ -29,11 +29,11 @@ void main() {
         const TilePolygonShape([Offset(0, 32), Offset(32, 0), Offset(32, 32)]),
       ],
     );
-    physics = PhysicsEngine.pureDart()..initialize();
+    physics = Physics2DEngine.pureDart()..initialize();
     world = World()..initialize();
     world.context.tiles.putTileset('s.tileset.json', ts);
     world
-      ..addSystem(PhysicsSystem(physics))
+      ..addSystem(Physics2DSystem(physics))
       ..addSystem(PlayerControlSystem());
     registerLevelMapSystems(world);
     final data = LevelMapData(tileWidth: 32, tileHeight: 32)
@@ -72,13 +72,13 @@ void main() {
         TransformComponent(position: Vector3(x, y, 0)),
         VelocityComponent(),
         // As the template's player: the kit steers it by its velocity.
-        RigidBody2D(
+        RigidBody2DComponent(
           lockRotation: true,
           friction: 0.2,
           restitution: 0,
           linearDamping: 0,
         ),
-        Collider2D(size: Vector2(24, 40)),
+        Collider2DComponent(size: Vector2(24, 40)),
         PlayerControlComponent(),
         InputComponent(),
       ]);
@@ -105,7 +105,7 @@ void main() {
     run(120);
     expect((at() - before).distance, lessThan(2), reason: 'no sliding down');
     expect(
-      player.getComponent<RigidBody2D>()!.groundNormal.dx,
+      player.getComponent<RigidBody2DComponent>()!.groundNormal.dx,
       isNot(closeTo(0, 0.05)),
       reason: 'it is on the slope, not the flat',
     );

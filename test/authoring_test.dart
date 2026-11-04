@@ -15,16 +15,16 @@ import 'package:just_platformer_kit/just_platformer_kit.dart';
 
 void main() {
   late World world;
-  late PhysicsEngine physics;
-  late Camera camera;
+  late Physics2DEngine physics;
+  late OutputCamera camera;
 
   setUp(() {
-    physics = PhysicsEngine.pureDart()..initialize();
+    physics = Physics2DEngine.pureDart()..initialize();
     physics.setGravity(0, 2200);
     world = World(context: EngineContext(extensions: [PlatformerKit.extension]))
       ..initialize();
-    camera = Camera(position: Offset.zero, zoom: 1);
-    world.addSystem(PhysicsSystem(physics));
+    camera = OutputCamera(position: Offset.zero, zoom: 1);
+    world.addSystem(Physics2DSystem(physics));
     PlatformerKit.registerSystems(world, physics: physics, camera: camera);
   });
   tearDown(() {
@@ -46,8 +46,8 @@ void main() {
     world.createEntityWithComponents([
       TransformComponent(position: Vector3(0, 0, 0)),
       VelocityComponent(),
-      RigidBody2D(lockRotation: true, friction: 0.2, linearDamping: 0),
-      Collider2D(size: Vector2(32, 48)),
+      RigidBody2DComponent(lockRotation: true, friction: 0.2, linearDamping: 0),
+      Collider2DComponent(size: Vector2(32, 48)),
       PlayerControlComponent(),
       InputComponent(),
       HealthComponent(maxHealth: 3),

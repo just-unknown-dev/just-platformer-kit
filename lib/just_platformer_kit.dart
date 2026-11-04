@@ -19,7 +19,7 @@
 library;
 
 export 'src/camera/platformer_camera.dart';
-export 'src/codecs/platformer_schemas.dart';
+export 'src/codecs/platformer_definitions.dart';
 export 'src/components/platformer.dart';
 export 'src/systems/platformer.dart';
 export 'src/platformer_kit.dart';

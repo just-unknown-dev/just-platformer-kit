@@ -34,7 +34,7 @@ class PlatformerGameplaySystem extends System {
 
   /// Where a level's [LevelBoundsComponent.gravityY] is applied: the world's
   /// physics. Null applies none.
-  final PhysicsEngine? physics;
+  final Physics2DEngine? physics;
 
   @override
   int get priority => SystemPriorities.genreRules;
@@ -76,7 +76,7 @@ class PlatformerGameplaySystem extends System {
   }
 
   static const List<Type> _boundsQuery = [LevelBoundsComponent];
-  static const List<Type> _charactersQuery = [CharacterBody2D];
+  static const List<Type> _charactersQuery = [CharacterBody2DComponent];
   static const List<Type> _collectiblesQuery = [CollectibleComponent];
   static const List<Type> _platformsQuery = [PlatformComponent];
   static const List<Type> _mortalsQuery = [TransformComponent, HealthComponent];
@@ -114,7 +114,7 @@ class PlatformerGameplaySystem extends System {
     _groundOf.removeWhere((e, _) => !e.isAlive);
     for (final player in world.query(_charactersQuery)) {
       if (!player.isActive || !_isPlayer(player)) continue;
-      final body = player.getComponent<CharacterBody2D>()!;
+      final body = player.getComponent<CharacterBody2DComponent>()!;
       final ground = body.isGrounded ? body.groundEntity : null;
       if (ground != null && !identical(ground, _groundOf[player]) && ground.isAlive) {
         _resolveContact(ground, player, -1);
@@ -385,7 +385,7 @@ class PlatformerGameplaySystem extends System {
     }
 
     if (knockbackX != 0 || knockbackY != 0) {
-      final character = victim.getComponent<CharacterBody2D>();
+      final character = victim.getComponent<CharacterBody2DComponent>();
       if (character != null) {
         // Sideways through its run speed, which player control eases off;
         // up as a launch.
@@ -422,7 +422,7 @@ class PlatformerGameplaySystem extends System {
         // A one-way platform *is* a one-way body. Levels saved before the
         // prefab said so have a solid body under a one-way label, which
         // the player could not jump up through.
-        final collider = entity.getComponent<Collider2D>();
+        final collider = entity.getComponent<Collider2DComponent>();
         if (collider != null && !collider.oneWay) collider.oneWay = true;
         continue;
       }
@@ -460,7 +460,7 @@ class PlatformerGameplaySystem extends System {
 
     // Colliding with no layer, the body stops nothing — which, unlike making
     // it a sensor, keeps the body as it is on both physics backends.
-    final bodyComp = entity.getComponent<RigidBody2D>();
+    final bodyComp = entity.getComponent<RigidBody2DComponent>();
     if (bodyComp != null) {
       if (collapsed) {
         platform.collidesBeforeCollapse = bodyComp.collidesWith;

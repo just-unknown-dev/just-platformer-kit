@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Requires just_game_engine ^2.0.0-dev.4.
+- Installing the kit installs the engine's built-in components (`BuiltInComponents.extension`) too: its levels use them.
+- **Breaking**: `MovingPlatformComponent` is `MovingPlatform2DComponent` (file `moving_platform_2d_component.dart`): the third-person kit has a 3-D one. Levels saved before are renamed as they load (`PlatformerMigrations.renamedTypes`).
+- **Breaking**: `MovingPlatformSystem` is `MovingPlatform2DSystem` (file `moving_platform_2d_system.dart`), the twin of the third-person kit's `MovingPlatform3DSystem`.
+- **Breaking**: `PlatformerSchemas` is `PlatformerDefinitions` (file `codecs/platformer_definitions.dart`; was `platformer_schemas.dart`), and its components' definitions are `ComponentDefinition`s, now that the engine has folded `ComponentSchema` into it.
+
 ## 0.1.0-beta.1
 
 First release: platformer gameplay for `just_game_engine` 2.0, and the Level Designer module that authors it.

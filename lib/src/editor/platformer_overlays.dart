@@ -109,9 +109,9 @@ class PlatformPathOverlay extends DesignerOverlay {
     final editing = context.controller.toolId.value == pathToolId;
     final selectedId = context.selected?.id;
 
-    for (final entity in context.world.query([MovingPlatformComponent])) {
+    for (final entity in context.world.query([MovingPlatform2DComponent])) {
       if (!entity.isActive || !context.showsGizmosOf(entity)) continue;
-      final platform = entity.getComponent<MovingPlatformComponent>()!;
+      final platform = entity.getComponent<MovingPlatform2DComponent>()!;
       final points = platform.waypoints;
       if (points.length < 2) continue;
 

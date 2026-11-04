@@ -4,7 +4,7 @@
 /// `game_boot.dart` for the canonical order.
 library;
 
-export 'moving_platform_system.dart';
+export 'moving_platform_2d_system.dart';
 export 'parallax_rect_system.dart';
 export 'patrol_enemy_system.dart';
 export 'platformer_events.dart';

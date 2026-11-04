@@ -8,15 +8,15 @@ import 'package:just_platformer_kit/just_platformer_kit.dart';
 
 void main() {
   for (final (name, make) in [
-    ('native Box2D', () => PhysicsEngine()..initialize()),
-    ('pure Dart', () => PhysicsEngine.pureDart()..initialize()),
+    ('native Box2D', () => Physics2DEngine()..initialize()),
+    ('pure Dart', () => Physics2DEngine.pureDart()..initialize()),
   ]) {
     group(name, () => _probes(make));
   }
 }
 
-void _probes(PhysicsEngine Function() make) {
-  late PhysicsEngine physics;
+void _probes(Physics2DEngine Function() make) {
+  late Physics2DEngine physics;
   late World world;
 
   setUp(() {
@@ -24,7 +24,7 @@ void _probes(PhysicsEngine Function() make) {
     world = World()..initialize();
     world
       ..addSystem(PatrolEnemySystem(physics: physics))
-      ..addSystem(PhysicsSystem(physics));
+      ..addSystem(Physics2DSystem(physics));
   });
   tearDown(() {
     world.dispose();
@@ -35,8 +35,8 @@ void _probes(PhysicsEngine Function() make) {
   Entity block(double x, double y, double w, double h) =>
       world.createEntityWithComponents([
         TransformComponent(position: Vector3(x, y, 0)),
-        RigidBody2D(bodyType: BodyType.static, friction: 0.2),
-        Collider2D(size: Vector2(w, h)),
+        RigidBody2DComponent(bodyType: Body2DType.static, friction: 0.2),
+        Collider2DComponent(size: Vector2(w, h)),
       ]);
 
   /// An enemy standing on ground whose top is at y = 100.
@@ -44,8 +44,12 @@ void _probes(PhysicsEngine Function() make) {
       world.createEntityWithComponents([
         TransformComponent(position: Vector3(x, 81, 0)),
         VelocityComponent(),
-        RigidBody2D(lockRotation: true, friction: 0.2, linearDamping: 0),
-        Collider2D(size: Vector2(36, 36)),
+        RigidBody2DComponent(
+          lockRotation: true,
+          friction: 0.2,
+          linearDamping: 0,
+        ),
+        Collider2DComponent(size: Vector2(36, 36)),
         behaviour,
       ], name: 'Enemy');
 
@@ -79,8 +83,8 @@ void _probes(PhysicsEngine Function() make) {
     block(0, 120, 2000, 40);
     world.createEntityWithComponents([
       TransformComponent(position: Vector3(200, 76, 0)),
-      RigidBody2D(lockRotation: true),
-      Collider2D(size: Vector2(32, 48)),
+      RigidBody2DComponent(lockRotation: true),
+      Collider2DComponent(size: Vector2(32, 48)),
       TagComponent(PlatformerTags.player),
     ]);
     final e = enemy(150, PatrolEnemyComponent(patrolRange: 1000));

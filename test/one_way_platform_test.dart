@@ -16,7 +16,7 @@ void main() {
       (p) => p.id == 'platformer.platform_one_way',
     );
     final components = prefab.build(Offset.zero, const Size(128, 16));
-    final body = components.whereType<Collider2D>().single;
+    final body = components.whereType<Collider2DComponent>().single;
 
     expect(body.oneWay, isTrue);
   });
@@ -27,7 +27,7 @@ void main() {
     );
     final components = prefab.build(Offset.zero, const Size(128, 32));
 
-    expect(components.whereType<Collider2D>().single.oneWay, false);
+    expect(components.whereType<Collider2DComponent>().single.oneWay, false);
   });
 
   test('a one-way platform saved with a solid body becomes one-way', () {
@@ -36,12 +36,12 @@ void main() {
     world.addSystem(PlatformerGameplaySystem());
     final platform = world.createEntityWithComponents([
       TransformComponent(),
-      RigidBody2D(bodyType: BodyType.static), Collider2D(size: Vector2(128, 16)),
+      RigidBody2DComponent(bodyType: Body2DType.static), Collider2DComponent(size: Vector2(128, 16)),
       PlatformComponent(kind: PlatformKind.oneWay),
     ]);
 
     world.update(1 / 60);
 
-    expect(platform.getComponent<Collider2D>()!.oneWay, isTrue);
+    expect(platform.getComponent<Collider2DComponent>()!.oneWay, isTrue);
   });
 }

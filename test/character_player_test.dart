@@ -1,4 +1,4 @@
-// A player that is a CharacterBody2D instead of a rigid body: the same feel
+// A player that is a CharacterBody2DComponent instead of a rigid body: the same feel
 // from PlayerControlSystem, and the same level rules from
 // PlatformerGameplaySystem — bounce pads, crumbling platforms, stomps,
 // pickups, knockback — through real physics.
@@ -10,15 +10,15 @@ import 'package:just_platformer_kit/just_platformer_kit.dart';
 void main() {
   // The same player on each backend.
   for (final (name, make) in [
-    ('native Box2D', () => PhysicsEngine()..initialize()),
-    ('pure Dart', () => PhysicsEngine.pureDart()..initialize()),
+    ('native Box2D', () => Physics2DEngine()..initialize()),
+    ('pure Dart', () => Physics2DEngine.pureDart()..initialize()),
   ]) {
     group(name, () => _suite(make));
   }
 }
 
-void _suite(PhysicsEngine Function() make) {
-  late PhysicsEngine physics;
+void _suite(Physics2DEngine Function() make) {
+  late Physics2DEngine physics;
   late World world;
 
   setUp(() {
@@ -28,7 +28,7 @@ void _suite(PhysicsEngine Function() make) {
       ..initialize();
     world
       ..addSystem(PlayerControlSystem())
-      ..addSystem(PhysicsSystem(physics))
+      ..addSystem(Physics2DSystem(physics))
       ..addSystem(PlatformerGameplaySystem());
   });
   tearDown(() {
@@ -50,8 +50,8 @@ void _suite(PhysicsEngine Function() make) {
     List<Component> more = const [],
   ]) => world.createEntityWithComponents([
     TransformComponent(position: Vector3(x, y, 0)),
-    RigidBody2D(bodyType: BodyType.static),
-    Collider2D(size: Vector2(w, h)),
+    RigidBody2DComponent(bodyType: Body2DType.static),
+    Collider2DComponent(size: Vector2(w, h)),
     ...more,
   ]);
 
@@ -61,14 +61,15 @@ void _suite(PhysicsEngine Function() make) {
   Entity hero({double x = 0, double y = 60}) =>
       world.createEntityWithComponents([
         TransformComponent(position: Vector3(x, y, 0)),
-        CharacterBody2D(shape: CharacterShape2D.box),
+        CharacterBody2DComponent(shape: CharacterBody2DShape.box),
         PlayerControlComponent(),
         InputComponent(),
         HealthComponent(maxHealth: 3),
         TagComponent(PlatformerTags.player),
       ], name: 'Player');
 
-  CharacterBody2D bodyOf(Entity e) => e.getComponent<CharacterBody2D>()!;
+  CharacterBody2DComponent bodyOf(Entity e) =>
+      e.getComponent<CharacterBody2DComponent>()!;
   InputComponent inputOf(Entity e) => e.getComponent<InputComponent>()!;
   PlayerControlComponent controlOf(Entity e) =>
       e.getComponent<PlayerControlComponent>()!;
@@ -161,8 +162,8 @@ void _suite(PhysicsEngine Function() make) {
     floor();
     final enemy = world.createEntityWithComponents([
       TransformComponent(position: Vector3(0, 84, 0)),
-      RigidBody2D(lockRotation: true),
-      Collider2D(size: Vector2(32, 32)),
+      RigidBody2DComponent(lockRotation: true),
+      Collider2DComponent(size: Vector2(32, 32)),
       PatrolEnemyComponent(),
       HealthComponent(maxHealth: 1),
     ], name: 'Enemy');
@@ -184,14 +185,14 @@ void _suite(PhysicsEngine Function() make) {
     floor();
     world.createEntityWithComponents([
       TransformComponent(position: Vector3(80, 76, 0)),
-      RigidBody2D(bodyType: BodyType.static, isSensor: true),
-      Collider2D(size: Vector2(16, 16)),
+      RigidBody2DComponent(bodyType: Body2DType.static, isSensor: true),
+      Collider2DComponent(size: Vector2(16, 16)),
       CollectibleComponent(),
     ]);
     world.createEntityWithComponents([
       TransformComponent(position: Vector3(200, 76, 0)),
-      RigidBody2D(bodyType: BodyType.static, isSensor: true),
-      Collider2D(size: Vector2(16, 40)),
+      RigidBody2DComponent(bodyType: Body2DType.static, isSensor: true),
+      Collider2DComponent(size: Vector2(16, 40)),
       HazardComponent(knockback: const Offset(-300, -400)),
     ]);
     final picked = <Entity>[];

@@ -33,13 +33,13 @@ TilesetData _tileset() {
 
 class _Level {
   _Level() {
-    physics = PhysicsEngine.pureDart()..initialize();
+    physics = Physics2DEngine.pureDart()..initialize();
     world = World()
       ..context.install(PlatformerKit.extension)
       ..initialize();
     world.context.tiles.putTileset('kit.tileset.json', _tileset());
     world
-      ..addSystem(PhysicsSystem(physics))
+      ..addSystem(Physics2DSystem(physics))
       ..addSystem(PlayerControlSystem())
       ..addSystem(PlatformerGameplaySystem());
     registerLevelMapSystems(world);
@@ -52,7 +52,7 @@ class _Level {
     ], name: 'Map');
   }
 
-  late final PhysicsEngine physics;
+  late final Physics2DEngine physics;
   late final World world;
   late final MapLayerData ground;
   late final Entity map;
@@ -66,8 +66,8 @@ class _Level {
   Entity player(double x, double y) => world.createEntityWithComponents([
     TransformComponent(position: Vector3(x, y, 0)),
     VelocityComponent(),
-    RigidBody2D(lockRotation: true, friction: 0.2, restitution: 0),
-    Collider2D(size: Vector2(24, 40)),
+    RigidBody2DComponent(lockRotation: true, friction: 0.2, restitution: 0),
+    Collider2DComponent(size: Vector2(24, 40)),
     PlayerControlComponent(),
     InputComponent(),
     HealthComponent(maxHealth: 5),
@@ -118,7 +118,7 @@ void main() {
         .query([MapBodyComponent])
         .where((e) => e.hasComponent<HazardComponent>());
     expect(spikes, isNotEmpty);
-    expect(spikes.first.getComponent<RigidBody2D>()!.isSensor, isTrue);
+    expect(spikes.first.getComponent<RigidBody2DComponent>()!.isSensor, isTrue);
   });
 
   test('a spring launches what lands on it', () {

@@ -7,11 +7,11 @@ import 'package:just_platformer_kit/just_platformer_kit.dart';
 
 void main() {
   late World world;
-  late PhysicsEngine physics;
+  late Physics2DEngine physics;
 
   setUp(() {
     world = World()..initialize();
-    physics = PhysicsEngine()..initialize();
+    physics = Physics2DEngine()..initialize();
     world.addSystem(PatrolEnemySystem(physics: physics));
   });
   tearDown(() {

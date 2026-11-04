@@ -30,7 +30,7 @@ class PatrolEnemySystem extends System {
   });
 
   /// Used for the ledge probe. Pass `engine.physics`.
-  final PhysicsEngine physics;
+  final Physics2DEngine physics;
 
   /// [TagComponent] value identifying the players a chaser goes after.
   final String playerTag;
@@ -50,8 +50,8 @@ class PatrolEnemySystem extends System {
 
   // Kept between steps so a step allocates no lists or sets of its own.
   final List<Offset> _playerPositions = [];
-  final Set<PhysicsBody> _playerBodies = {};
-  final Set<PhysicsBody> _exclude = {};
+  final Set<Physics2DBody> _playerBodies = {};
+  final Set<Physics2DBody> _exclude = {};
   bool _gathered = false;
 
   @override
@@ -138,7 +138,7 @@ class PatrolEnemySystem extends System {
     TransformComponent transform,
     PatrolEnemyComponent enemy,
   ) {
-    final body = entity.getComponent<PhysicsBodyRefComponent>()?.body;
+    final body = entity.getComponent<Physics2DBodyRefComponent>()?.body;
     if (body == null) return false;
 
     // The collider as simulated: placed and scaled with the entity.
@@ -148,7 +148,7 @@ class PatrolEnemySystem extends System {
     // From a little above the feet: a body at rest sinks a hair into what
     // it stands on (the solver's slop), and a ray that starts inside the
     // ground passes over it — every step would read as a ledge.
-    final ray = Ray(
+    final ray = Ray2D(
       origin: Offset(aheadX, footY - _probeLift),
       direction: const Offset(0, 1),
       maxDistance: bounds.height + _probeLift,
@@ -163,11 +163,11 @@ class PatrolEnemySystem extends System {
     TransformComponent transform,
     PatrolEnemyComponent enemy,
   ) {
-    final body = entity.getComponent<PhysicsBodyRefComponent>()?.body;
+    final body = entity.getComponent<Physics2DBodyRefComponent>()?.body;
     if (body == null) return false;
 
     final bounds = body.shape.getBounds(Offset.zero);
-    final ray = Ray(
+    final ray = Ray2D(
       origin: Offset(transform.position.x, transform.position.y),
       direction: Offset(enemy.facing.toDouble(), 0),
       maxDistance: bounds.width / 2 + 4,
@@ -179,7 +179,7 @@ class PatrolEnemySystem extends System {
   /// Whether [ray] meets a body that is not a sensor (a coin, a trigger),
   /// [self] — or the probe would hit the enemy's own collider at once —
   /// or, with [skipPlayers], a player's.
-  bool _solidHit(Ray ray, PhysicsBody self, {required bool skipPlayers}) {
+  bool _solidHit(Ray2D ray, Physics2DBody self, {required bool skipPlayers}) {
     _exclude
       ..clear()
       ..add(self);
@@ -187,7 +187,7 @@ class PatrolEnemySystem extends System {
       _gather();
       _exclude.addAll(_playerBodies);
     }
-    for (final hit in physics.castRayAll(ray, exclude: _exclude)) {
+    for (final hit in physics.raycastAll(ray, exclude: _exclude)) {
       if (!hit.body.isSensor) return true;
     }
     return false;
@@ -206,7 +206,7 @@ class PatrolEnemySystem extends System {
           Offset(transform.position.x, transform.position.y),
         );
       }
-      final body = entity.getComponent<PhysicsBodyRefComponent>()?.body;
+      final body = entity.getComponent<Physics2DBodyRefComponent>()?.body;
       if (body != null) _playerBodies.add(body);
     }
   }

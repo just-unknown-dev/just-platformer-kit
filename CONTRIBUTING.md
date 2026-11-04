@@ -35,7 +35,7 @@ A bug report should have:
 - steps to reproduce, and what you expected instead of what happened;
 - the output of `flutter --version`, and the platform (Android, iOS, Linux, macOS, Windows, web);
 - the level's `.scene.json`, or the smallest part of it that shows the problem: the entities involved, with their components and field values;
-- for a movement bug, whether the player is a `RigidBody2D` or a `CharacterBody2D`, its `PlayerControlComponent` settings, and whether the game runs on the native Box2D physics or on `PhysicsEngine.pureDart()`;
+- for a movement bug, whether the player is a `RigidBody2DComponent` or a `CharacterBody2DComponent`, its `PlayerControlComponent` settings, and whether the game runs on the native Box2D physics or on `Physics2DEngine.pureDart()`;
 - for a painted tile that misbehaves, its collision kind (`hazard`, `bouncy` or `crumbling`) and the tile's properties from the tileset;
 - for a Level Designer bug, the prefab or tool involved (the moving-platform Path tool is K) and what you did in the editor.
 
@@ -103,9 +103,9 @@ The platformer template depends on this package. Its game boot adds `PlatformerK
 | Path | Contents |
 |------|----------|
 | `lib/just_platformer_kit.dart` | The runtime library, safe in a release build |
-| `lib/src/components/` | `PlatformComponent`, `MovingPlatformComponent`, `HazardComponent`, `CollectibleComponent`, `GoalComponent`, `PatrolEnemyComponent`, `PlayerControlComponent`, `LevelBoundsComponent`, `ParallaxRectComponent` |
-| `lib/src/systems/` | `PlayerControlSystem`, `PlatformerGameplaySystem`, `MovingPlatformSystem`, `PatrolEnemySystem`, `ParallaxRectSystem`; the events in `platformer_events.dart` |
-| `lib/src/codecs/` | `PlatformerSchemas`: how each component is saved, loaded and shown in the inspector |
+| `lib/src/components/` | `PlatformComponent`, `MovingPlatform2DComponent`, `HazardComponent`, `CollectibleComponent`, `GoalComponent`, `PatrolEnemyComponent`, `PlayerControlComponent`, `LevelBoundsComponent`, `ParallaxRectComponent` |
+| `lib/src/systems/` | `PlayerControlSystem`, `PlatformerGameplaySystem`, `MovingPlatform2DSystem`, `PatrolEnemySystem`, `ParallaxRectSystem`; the events in `platformer_events.dart` |
+| `lib/src/codecs/` | `PlatformerDefinitions`: how each component is saved, loaded and shown in the inspector |
 | `lib/src/camera/` | `PlatformerCamera.zone`, a camera zone built from the engine's virtual camera components; `PlatformerMigrations` |
 | `lib/src/map/` | `PlatformerCollisionKinds`: the `hazard`, `bouncy` and `crumbling` tile kinds |
 | `lib/src/platformer_kit.dart` | `PlatformerKit`: the extension, the animator bindings and the systems |
@@ -118,11 +118,11 @@ A few rules hold the package together. Keep them:
 
 - **The runtime never imports the editor.** Nothing that `lib/just_platformer_kit.dart` reaches imports `just_game_engine_editor` or a file under `lib/src/editor/`. That is what keeps the editor out of release builds. `just_store.json` lists `editor.dart` and `src/editor/` as editor-only; keep it in step.
 - **The module uses the public contract only.** `PlatformerModule` is the worked example of an `EditorModule`, so the editor half imports `package:just_game_engine_editor/just_game_engine_editor.dart` and never a file under its `src/`.
-- **Every saved component has a `ComponentSchema`** in `PlatformerSchemas.all`, in the runtime library, and its type is listed under `runtime.componentTypes` in `just_store.json`. Without one, the loader stops with an error naming the component, and the editor leaves the component out of the level. The schema's `hints` are the inspector's only description of a component, so the inspector cannot show a field that is not saved.
-- **Saved levels must keep loading.** Never change a schema's `type` or `id`, or a field's name. Never rename an enum value either: `EnumFieldType` saves the value's name, and an unknown name loads as the fallback. A new field needs nothing more, because a level saved without it loads the constructor's default. To replace or remove a component, add a rule to `PlatformerMigrations`, as `cameraZone` does for the old `CameraZoneComponent`.
-- **Schemas and prefabs are getters.** A hot reload never rebuilds a `static final`. `PlatformerKit.extension` is a `RefreshableExtension`, and its `refresh` puts the schemas back as the code now makes them. Write new ones as getters too.
+- **Every saved component has a `ComponentDefinition`** in `PlatformerDefinitions.all`, in the runtime library, and its type is listed under `runtime.componentTypes` in `just_store.json`. Without one, the loader stops with an error naming the component, and the editor leaves the component out of the level. The definition's `hints` are the inspector's only description of a component, so the inspector cannot show a field that is not saved.
+- **Saved levels must keep loading.** Never change a definition's `type` or `id`, or a field's name. Never rename an enum value either: `EnumFieldType` saves the value's name, and an unknown name loads as the fallback. A new field needs nothing more, because a level saved without it loads the constructor's default. To replace or remove a component, add a rule to `PlatformerMigrations`, as `cameraZone` does for the old `CameraZoneComponent`.
+- **Definitions and prefabs are getters.** A hot reload never rebuilds a `static final`. `PlatformerKit.extension` is a `RefreshableExtension`, and its `refresh` puts the definitions back as the code now makes them. Write new ones as getters too.
 - **Steer bodies, don't move them.** `PlayerControlSystem` writes a rigid body's velocity and gravity scale and lets the physics step integrate them. A write to the transform counts as a teleport and breaks collision resolution.
-- **A player is a `RigidBody2D` or a `CharacterBody2D`.** `PlayerControlSystem` and `PlatformerGameplaySystem` support both, so a change to the feel or to a level rule must work, and be tested, on both.
+- **A player is a `RigidBody2DComponent` or a `CharacterBody2DComponent`.** `PlayerControlSystem` and `PlatformerGameplaySystem` support both, so a change to the feel or to a level rule must work, and be tested, on both.
 - **The systems are a set.** They order themselves by `System.priority` (`SystemPriorities`) and depend on each other: `PlatformerGameplaySystem` reads the ground state `PlayerControlSystem` writes. `PlayerControlSystem` runs after input and before physics, so a press reaches the same frame's step. The systems find players by tag (`PlatformerTags.player`, through `world.allTagged` and `entity.hasTag`), never by name.
 - **Time comes from `deltaTime`.** Timers count down the `deltaTime` a system is given. Nothing under `lib/` reads the wall clock or a random generator.
 - **Every component is 2-D only** (`Dimensions.twoD` in its hints), so an editor does not offer it in a 3-D scene.
@@ -147,7 +147,7 @@ flutter test test/platformer_systems_test.dart
 
 **The module.** `test/platformer_module_test.dart` opens a real `LevelDesignerSession` with `PlatformerModule` and checks that everything the module adds is reachable. `test/kit_refresh_test.dart` checks what the extension does after a hot reload.
 
-**Physics.** `test/character_player_test.dart` runs each case on the native Box2D physics and on `PhysicsEngine.pureDart()`. The tile tests (`test/collision_kinds_test.dart`, `test/slope_test.dart`) build a tileset in code and run on the pure-Dart physics.
+**Physics.** `test/character_player_test.dart` runs each case on the native Box2D physics and on `Physics2DEngine.pureDart()`. The tile tests (`test/collision_kinds_test.dart`, `test/slope_test.dart`) build a tileset in code and run on the pure-Dart physics.
 
 **Writing tests.** There is no shared helper library. Build a bare `World` with only the systems under test, as `test/platformer_systems_test.dart` does, and step it with `world.update(1 / 60)`. Drive a player through its `InputComponent` (`setVector('move', …)`, `setDown('jump', true)`). Give a context the kit the way a game does, with `EngineContext(extensions: [PlatformerKit.extension])`.
 

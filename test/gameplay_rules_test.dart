@@ -19,8 +19,8 @@ void main() {
   Entity makePlayer({double x = 0}) => world.createEntityWithComponents([
     TransformComponent(position: Vector3(x, 0, 0)),
     VelocityComponent(),
-    RigidBody2D(lockRotation: true),
-    Collider2D(size: Vector2(32, 48)),
+    RigidBody2DComponent(lockRotation: true),
+    Collider2DComponent(size: Vector2(32, 48)),
     PlayerControlComponent(),
     InputComponent(),
     HealthComponent(maxHealth: 3),
@@ -95,8 +95,8 @@ void main() {
     Entity spikes({bool respawnOnHit = false}) =>
         world.createEntityWithComponents([
           TransformComponent(),
-          RigidBody2D(isSensor: true),
-          Collider2D(size: Vector2(64, 16)),
+          RigidBody2DComponent(isSensor: true),
+          Collider2DComponent(size: Vector2(64, 16)),
           HazardComponent(respawnOnHit: respawnOnHit),
         ], name: 'Spikes');
 
@@ -136,7 +136,7 @@ void main() {
 
   test("a stomp gives back the air jump it would take, and no more", () {
     final control = player.getComponent<PlayerControlComponent>()!;
-    final body = player.getComponent<RigidBody2D>()!;
+    final body = player.getComponent<RigidBody2DComponent>()!;
     final input = player.getComponent<InputComponent>()!;
     final velocity = player.getComponent<VelocityComponent>()!;
 
@@ -186,7 +186,7 @@ void main() {
   });
 
   test("a level's gravity goes on the physics when it starts and when it changes", () {
-    final physics = PhysicsEngine.pureDart()..initialize();
+    final physics = Physics2DEngine.pureDart()..initialize();
     addTearDown(physics.dispose);
     world.addSystem(PlatformerGameplaySystem(physics: physics));
     final bounds = LevelBoundsComponent(gravityY: 1000);
@@ -205,7 +205,7 @@ void main() {
 
   test('a character falls by its own velocity, for the falling binding', () {
     PlatformerKit.registerAnimatorBindings(world.context.animatorBindings);
-    final body = CharacterBody2D()..velocity = const Offset(0, 300);
+    final body = CharacterBody2DComponent()..velocity = const Offset(0, 300);
     final hero = world.createEntityWithComponents([
       TransformComponent(),
       body,
@@ -218,7 +218,7 @@ void main() {
   });
 
   test("level bounds' origin moves them, keeping their size", () {
-    final schema = PlatformerSchemas.levelBounds;
+    final schema = PlatformerDefinitions.levelBounds;
     final bounds = LevelBoundsComponent(bounds: const Rect.fromLTWH(0, 0, 4000, 1200));
     schema.field('boundsLeft')!.write!(bounds, 500.0);
     schema.field('boundsTop')!.write!(bounds, -100.0);

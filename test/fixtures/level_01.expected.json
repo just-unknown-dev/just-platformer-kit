@@ -71,7 +71,7 @@
         "fallGravityScale": 1.7,
         "jumpCutGravityScale": 3.2
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 48.0,
         "filled": true,
@@ -132,7 +132,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 416.0,
         "height": 64.0,
         "filled": true,
@@ -185,7 +185,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 96.0,
         "filled": true,
@@ -238,7 +238,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -291,7 +291,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -344,7 +344,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -397,7 +397,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -450,7 +450,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -503,7 +503,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -556,7 +556,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -609,7 +609,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -662,7 +662,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -715,7 +715,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 64.0,
         "filled": true,
@@ -768,7 +768,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -821,7 +821,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -874,7 +874,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -927,7 +927,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -980,7 +980,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -1033,7 +1033,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 32.0,
         "filled": true,
@@ -1086,7 +1086,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 96.0,
         "height": 32.0,
         "filled": true,
@@ -1139,7 +1139,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 64.0,
         "height": 32.0,
         "filled": true,
@@ -1192,7 +1192,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 32.0,
         "height": 64.0,
         "filled": true,
@@ -1245,7 +1245,7 @@
         "respawnDelay": 2.0,
         "bounceImpulse": 1400.0
       },
-      "RectangleComponent": {
+      "Rectangle2DComponent": {
         "width": 64.0,
         "height": 32.0,
         "filled": true,

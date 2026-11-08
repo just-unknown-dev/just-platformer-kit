@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:just_editor_core/just_editor_core.dart';
 
-import '../../just_platformer_kit.dart';
+import '../level/level.dart';
+import '../platforms/platforms.dart';
 
 /// Colours the platformer overlays draw in.
 abstract final class PlatformerOverlayColors {

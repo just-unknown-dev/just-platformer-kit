@@ -69,7 +69,9 @@
         "jumpBufferTime": 0.12,
         "riseGravityScale": 1.0,
         "fallGravityScale": 1.7,
-        "jumpCutGravityScale": 3.2
+        "jumpCutGravityScale": 3.2,
+        "maxSlopeDegrees": 50.0,
+        "snapDistance": 4.0
       },
       "Rectangle2DComponent": {
         "width": 32.0,

@@ -52,9 +52,9 @@ For a feature, open an issue labelled **`enhancement`** that describes the probl
 
 | Tool | Minimum version |
 |------|-----------------|
-| Dart | 3.11.0 |
-| Flutter | 3.44.0. The package's own pubspec accepts Flutter 1.17.0, but `just_game_engine` 2.0.0 needs 3.44.0 |
-| C/C++ toolchain | For the native Box2D library that `just_physics_engine`'s build hook compiles when the tests run. Windows: Visual Studio with the "Desktop development with C++" workload. Linux: clang or gcc. macOS: Xcode |
+| Dart | 3.12.2 |
+| Flutter | 3.47.1, which `just_game_engine`, `just_editor_core` and `just_game_engine_editor` need (Flutter GPU) |
+| C/C++ toolchain | For the native Box2D library that `just_box_2d`'s build hook compiles when the tests run. Windows: Visual Studio with the "Desktop development with C++" workload. Linux: clang or gcc. macOS: Xcode |
 
 There is no app to run here: you work on the package and its tests. To try a change in a real game, take a game made from the platformer template (`just_platformer_template`) and override `just_platformer_kit` in its `pubspec_overrides.yaml` with `path: ../just_platformer_kit`. The game's `lib/main_editor.dart` opens the editor, where `PlatformerModule` adds the Level Designer side.
 
@@ -73,22 +73,20 @@ If you're working from the Just engine monorepo, run every command from `plugins
 
 ## Working Against Unpublished Dependencies
 
-The package depends on four just_* packages: `just_game_engine`, `just_physics_engine`, `just_game_engine_editor` and `just_game_engine_formats`. When a change needs an unreleased version of one of them, check it out next to this repository and point this package at it with a `pubspec_overrides.yaml` in the repository root:
+The package depends on two just_* packages, `just_game_engine` (physics comes through it) and `just_editor_core`, and its tests on a third, `just_game_engine_editor`. When a change needs an unreleased version of one of them, check it out next to this repository and point this package at it with a `pubspec_overrides.yaml` in the repository root:
 
 ```yaml
 # pubspec_overrides.yaml: local only, never commit it.
 dependency_overrides:
   just_game_engine:
     path: ../just_game_engine
-  just_physics_engine:
-    path: ../just_physics_engine
+  just_editor_core:
+    path: ../just_editor_core
   just_game_engine_editor:
     path: ../just_game_engine_editor
-  just_game_engine_formats:
-    path: ../just_game_engine_formats
 ```
 
-List only the ones you need. If an overridden package needs an unreleased version of a package it depends on in turn (`just_inputs`, `just_tiled`, `just_jolt`, …), add that one too. In the monorepo the file overrides all thirteen just_* packages the kit reaches.
+List only the ones you need. If an overridden package needs an unreleased version of a package it depends on in turn (`just_physics_engine`, `just_game_engine_formats`, `just_inputs`, `just_tiled`, …), add that one too. In the monorepo the file overrides every just_* package the kit reaches.
 
 Then run `flutter pub get`. Delete the file (or the entry) and run `flutter pub get` again to go back to the published versions.
 
@@ -102,26 +100,28 @@ The platformer template depends on this package. Its game boot adds `PlatformerK
 
 | Path | Contents |
 |------|----------|
-| `lib/just_platformer_kit.dart` | The runtime library, safe in a release build |
-| `lib/src/components/` | `PlatformComponent`, `MovingPlatform2DComponent`, `HazardComponent`, `CollectibleComponent`, `GoalComponent`, `PatrolEnemyComponent`, `PlayerControlComponent`, `LevelBoundsComponent`, `ParallaxRectComponent` |
-| `lib/src/systems/` | `PlayerControlSystem`, `PlatformerGameplaySystem`, `MovingPlatform2DSystem`, `PatrolEnemySystem`, `ParallaxRectSystem`; the events in `platformer_events.dart` |
-| `lib/src/codecs/` | `PlatformerDefinitions`: how each component is saved, loaded and shown in the inspector |
-| `lib/src/camera/` | `PlatformerCamera.zone`, a camera zone built from the engine's virtual camera components; `PlatformerMigrations` |
-| `lib/src/map/` | `PlatformerCollisionKinds`: the `hazard`, `bouncy` and `crumbling` tile kinds |
-| `lib/src/platformer_kit.dart` | `PlatformerKit`: the extension, the animator bindings and the systems |
-| `lib/src/platformer_tags.dart` | `PlatformerTags`: the tags the kit's code looks for |
-| `lib/editor.dart`, `lib/src/editor/` | Design time only: `PlatformerModule`, `PlatformerPrefabs`, `LevelBoundsOverlay`, `PlatformPathOverlay` |
+| `lib/just_platformer_kit.dart` | The runtime library, safe in a release build: it exports the six runtime barrels below |
+| `lib/src/level/` | `PlatformerTags` (the tags the kit's code looks for), `LevelBoundsComponent`, `ParallaxRectComponent` and `ParallaxRectSystem`, `PlatformerCamera.zone` (a camera zone built from the engine's virtual camera components) |
+| `lib/src/platforms/` | `PlatformComponent` (and `PlatformKind`), `MovingPlatform2DComponent` (and `PlatformLoopMode`), `MovingPlatform2DSystem` |
+| `lib/src/player/` | `PlayerControlComponent`, `PlayerControlSystem`, and its internal ground probe (`player_ground_probe.dart`) |
+| `lib/src/enemies/` | `PatrolEnemyComponent` (and `EnemyBehaviour`), `PatrolEnemySystem` |
+| `lib/src/rules/` | `HazardComponent`, `CollectibleComponent`, `GoalComponent`, `PlatformerGameplaySystem`, the events in `platformer_events.dart`, `PlatformerCollisionKinds` (the `hazard`, `bouncy` and `crumbling` tile kinds) |
+| `lib/src/kit/` | `PlatformerKit` (the extension, the animator bindings and the systems), `PlatformerDefinitions` (how each component is saved, loaded and shown in the inspector), `PlatformerMigrations` |
+| `lib/editor.dart`, `lib/src/editor/` | Design time only: `PlatformerModule`, `PlatformerPrefabs`, `PlatformerChecks`, `LevelBoundsOverlay`, `PlatformPathOverlay` |
 | `just_store.json` | The Asset Store manifest: the extension and module a game registers, the component types the kit adds, the setup code shown after installing it, and the editor-only libraries. The `just` CLI's release check reads that last list |
 | `test/fixtures/` | `level_01.scene.json`, a level saved in the oldest scene format, and the two goldens made from it |
 
-A few rules hold the package together. Keep them:
+A few rules hold the package together. Keep them; `test/library_layout_test.dart` checks the first four:
 
-- **The runtime never imports the editor.** Nothing that `lib/just_platformer_kit.dart` reaches imports `just_game_engine_editor` or a file under `lib/src/editor/`. That is what keeps the editor out of release builds. `just_store.json` lists `editor.dart` and `src/editor/` as editor-only; keep it in step.
-- **The module uses the public contract only.** `PlatformerModule` is the worked example of an `EditorModule`, so the editor half imports `package:just_game_engine_editor/just_game_engine_editor.dart` and never a file under its `src/`.
+- **Features, in layers.** `lib/src/` holds one folder per feature, each with a barrel named after it (`player/player.dart`) that exports the whole folder; the public libraries export only barrels. A file the barrel leaves out marks its public names `@internal`. The layers, bottom to top: `level` → `platforms` → `player`, `enemies` → `rules` → `kit` → `editor`. A feature imports its own layer or below, never above, and no two features import each other. Within a folder, files import their siblings; across folders, the other feature's barrel.
+- **The runtime never imports the editor.** Nothing that `lib/just_platformer_kit.dart` reaches imports `just_editor_core`, `just_game_engine_editor`, `flutter_test`, `dart:io` or a file under `lib/src/editor/`. That is what keeps the editor out of release builds. `just_store.json` lists `editor.dart` and `src/editor/` as editor-only; keep it in step.
+- **The module uses the public contract only.** `PlatformerModule` is the worked example of an `EditorModule`, so the editor half imports `package:just_editor_core/just_editor_core.dart` and never a file under its `src/`.
+- **The manifest agrees with the package.** `just_store.json`'s `version` is the pubspec's and the newest CHANGELOG heading's, its `requires` are the pubspec's constraints, and its `componentTypes` are `PlatformerDefinitions.all`'s (`test/store_manifest_test.dart`).
 - **Every saved component has a `ComponentDefinition`** in `PlatformerDefinitions.all`, in the runtime library, and its type is listed under `runtime.componentTypes` in `just_store.json`. Without one, the loader stops with an error naming the component, and the editor leaves the component out of the level. The definition's `hints` are the inspector's only description of a component, so the inspector cannot show a field that is not saved.
-- **Saved levels must keep loading.** Never change a definition's `type` or `id`, or a field's name. Never rename an enum value either: `EnumFieldType` saves the value's name, and an unknown name loads as the fallback. A new field needs nothing more, because a level saved without it loads the constructor's default. To replace or remove a component, add a rule to `PlatformerMigrations`, as `cameraZone` does for the old `CameraZoneComponent`.
+- **Saved levels must keep loading.** Never change a definition's `id`, or a type or field name without a migration. Never rename an enum value either: `EnumFieldType` saves the value's name, and an unknown name loads as the fallback. A new field needs nothing more, because a level saved without it loads the constructor's default. To rename a component, add `'OldName': 'NewName'` to `PlatformerMigrations.renamedTypes` and keep the earlier entries: the scene format applies them to a level of any format as it loads, and follows chains. A renamed field goes in `context.migrations.renamedFields`. To replace or remove a component, add a rule to `PlatformerMigrations`, as `cameraZone` does for the old `CameraZoneComponent`. Add a test that a level saved before loads.
+- **The game never writes a saved field.** Runtime state lives in fields no definition saves, and a body is changed at run time through the engine's overrides (`gravityScaleOverride`, `RigidBody2DComponent.collidesWithNothing`), never its saved `gravityScale` or `collidesWith`. A level whose saved data is wrong is fixed where it is authored, through a Problems-dock check with a fix (`PlatformerChecks`), not by a system at run time.
 - **Definitions and prefabs are getters.** A hot reload never rebuilds a `static final`. `PlatformerKit.extension` is a `RefreshableExtension`, and its `refresh` puts the definitions back as the code now makes them. Write new ones as getters too.
-- **Steer bodies, don't move them.** `PlayerControlSystem` writes a rigid body's velocity and gravity scale and lets the physics step integrate them. A write to the transform counts as a teleport and breaks collision resolution.
+- **Steer bodies, don't move them.** `PlayerControlSystem` writes a body's velocity and its run-time gravity scale (`gravityScaleOverride`) and lets the physics step integrate them. A write to the transform counts as a teleport and breaks collision resolution.
 - **A player is a `RigidBody2DComponent` or a `CharacterBody2DComponent`.** `PlayerControlSystem` and `PlatformerGameplaySystem` support both, so a change to the feel or to a level rule must work, and be tested, on both.
 - **The systems are a set.** They order themselves by `System.priority` (`SystemPriorities`) and depend on each other: `PlatformerGameplaySystem` reads the ground state `PlayerControlSystem` writes. `PlayerControlSystem` runs after input and before physics, so a press reaches the same frame's step. The systems find players by tag (`PlatformerTags.player`, through `world.allTagged` and `entity.hasTag`), never by name.
 - **Time comes from `deltaTime`.** Timers count down the `deltaTime` a system is given. Nothing under `lib/` reads the wall clock or a random generator.
@@ -138,30 +138,32 @@ Run every command from the repository root. The tests read `test/fixtures/` by a
 flutter test
 
 # One file.
-flutter test test/platformer_systems_test.dart
+flutter test test/player/player_control_system_test.dart
 ```
 
-**Saved levels.** Three tests use `test/fixtures/level_01.scene.json`. `test/runtime_scene_load_test.dart` loads it with the runtime library alone: it imports nothing from `just_game_engine_editor`, and must stay that way. `test/scene_format_golden_test.dart` compares what migration makes of it with `level_01.migrated.scene.json`. `test/level_values_golden_test.dart` compares the component values it loads to with `level_01.expected.json`. When your change is meant to alter a golden, delete that file and run its test: it writes a new one and fails. Review the diff, then run the test again.
+The tests mirror `lib/src/`: `test/<feature>/` holds the tests of `lib/src/<feature>/`. `test/library_layout_test.dart` and `test/store_manifest_test.dart` sit at the top.
 
-**Round trips.** `test/component_round_trip_test.dart` sets every component to values that differ from its defaults and sends it through the editor's encode and decode. A field you add goes in there.
+**Saved levels.** Three tests use `test/fixtures/level_01.scene.json`. `test/kit/runtime_scene_load_test.dart` loads it with the runtime library alone: it imports nothing from `just_game_engine_editor`, and must stay that way. `test/kit/scene_format_golden_test.dart` compares what migration makes of it with `level_01.migrated.scene.json`. `test/kit/level_values_golden_test.dart` compares the component values it loads to with `level_01.expected.json`. When your change is meant to alter a golden, delete that file and run its test: it writes a new one and fails. Review the diff, then run the test again.
 
-**The module.** `test/platformer_module_test.dart` opens a real `LevelDesignerSession` with `PlatformerModule` and checks that everything the module adds is reachable. `test/kit_refresh_test.dart` checks what the extension does after a hot reload.
+**Round trips.** `test/kit/platformer_definitions_test.dart` sets every component to values that differ from its defaults and sends it through the editor's encode and decode. A field you add goes in there.
 
-**Physics.** `test/character_player_test.dart` runs each case on the native Box2D physics and on `Physics2DEngine.pureDart()`. The tile tests (`test/collision_kinds_test.dart`, `test/slope_test.dart`) build a tileset in code and run on the pure-Dart physics.
+**The module.** `test/editor/platformer_module_test.dart` opens a real `LevelDesignerSession` with `PlatformerModule` and checks that everything the module adds is reachable. `test/kit/kit_refresh_test.dart` checks what the extension does after a hot reload.
 
-**Writing tests.** There is no shared helper library. Build a bare `World` with only the systems under test, as `test/platformer_systems_test.dart` does, and step it with `world.update(1 / 60)`. Drive a player through its `InputComponent` (`setVector('move', …)`, `setDown('jump', true)`). Give a context the kit the way a game does, with `EngineContext(extensions: [PlatformerKit.extension])`.
+**Physics.** The player, enemy and hazard tests run each case on the native Box2D physics and on `Physics2DEngine.pureDart()`. `test/player/slope_test.dart` builds ramps of tiles in code, among them the ramps of the platformer template's levels cell for cell, and runs the template's player over them on both backends, counting the frames it is off the ground or caught.
+
+**Writing tests.** There is no shared helper library. Build a bare `World` with only the systems under test, as `test/player/player_control_system_test.dart` does, and step it with `world.update(1 / 60)`. Drive a player through its `InputComponent` (`setVector('move', …)`, `setDown('jump', true)`). Give a context the kit the way a game does, with `EngineContext(extensions: [PlatformerKit.extension])`.
 
 ---
 
 ## Coding Guidelines
 
-- **Formatting.** Format the files you change with `dart format <files>`. Not every file in the package is formatted yet, so do not reformat files your change does not touch.
+- **Formatting.** The package is `dart format` clean; format the files you change with `dart format <files>`.
 - **Analysis.** `flutter analyze` must report no issues at all: no errors, warnings or infos. The rules are in `analysis_options.yaml`: `flutter_lints`, with `build/` excluded.
 - **Web.** Nothing under `lib/` imports `dart:io` or `dart:html`. Keep it that way: the platformer template also builds for the web.
 - **Documentation.** Give every public API you add a `///` doc comment. Describe user-visible changes in [CHANGELOG.md](CHANGELOG.md), and update [README.md](README.md) if the public API changes.
 - **Tests.** Add or update tests for any behaviour you change. A bug fix comes with a test that fails without it.
 - **Dependencies.** Do not add a dependency without discussing it in an issue first.
-- **Structure.** Match the existing folders under `lib/src/`. A new component is exported from `lib/src/components/platformer.dart`, a new system from `lib/src/systems/platformer.dart`. Runtime API reaches users through `lib/just_platformer_kit.dart`, design-time API through `lib/editor.dart`. Prefab ids start with `platformer.`.
+- **Structure.** A new file goes in the feature folder it belongs to and is exported from that folder's barrel (or marked `@internal`); a new feature folder gets a barrel, a place in the layers of `test/library_layout_test.dart`, and an export from `lib/just_platformer_kit.dart`. Runtime API reaches users through `lib/just_platformer_kit.dart`, design-time API through `lib/editor.dart`. Prefab ids start with `platformer.`.
 
 ---
 
@@ -204,12 +206,12 @@ We use [Conventional Commits](https://www.conventionalcommits.org/):
 | `test` | Adding or updating tests |
 | `chore` | Build process, tooling, dependencies |
 
-Use the area as the scope: `components`, `systems`, `codecs`, `camera`, `map`, `kit` or `editor`. Mark a change that breaks the public API or how levels are saved with `!` and a `BREAKING CHANGE:` footer.
+Use the feature folder as the scope: `level`, `platforms`, `player`, `enemies`, `rules`, `kit` or `editor`. Mark a change that breaks the public API or how levels are saved with `!` and a `BREAKING CHANGE:` footer.
 
 **Examples:**
 ```
-fix(systems): keep coyote time when a crumbling platform gives way
-feat(map): read a knockback property on hazard tiles
+fix(player): keep coyote time when a crumbling platform gives way
+feat(rules): read a knockback property on hazard tiles
 docs(contributing): explain the level fixtures
 ```
 

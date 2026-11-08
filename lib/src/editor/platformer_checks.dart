@@ -3,11 +3,13 @@ import 'dart:math' as math;
 import 'package:just_editor_core/just_editor_core.dart';
 import 'package:just_game_engine/just_game_engine.dart' as jge;
 
+import '../platforms/platforms.dart';
+
 /// The platformer's checks in the editor's Problems dock, contributed
 /// through `PlatformerModule.validators`.
 abstract final class PlatformerChecks {
   /// Every check.
-  static const List<SceneValidator> all = [checkpoints];
+  static const List<SceneValidator> all = [checkpoints, oneWayPlatforms];
 
   /// How far, in world units, a checkpoint's respawn point may be from the
   /// checkpoint (or past its radius, if that is larger) before it is flagged.
@@ -51,6 +53,62 @@ abstract final class PlatformerChecks {
     return problems;
   }
 
+  /// A one-way platform whose collider is solid — a level saved before the
+  /// kit's one-way prefab built a one-way body. The player cannot jump up
+  /// through it, whatever its kind says. A warning, with a fix that makes
+  /// the collider one-way: the data is fixed where it is authored, and the
+  /// game reads it as saved.
+  static List<SceneProblem> oneWayPlatforms(ValidationContext context) {
+    final problems = <SceneProblem>[];
+    for (final e in context.world.query(const [
+      PlatformComponent,
+      jge.Collider2DComponent,
+    ])) {
+      final platform = e.getComponent<PlatformComponent>()!;
+      final collider = e.getComponent<jge.Collider2DComponent>()!;
+      if (platform.kind != PlatformKind.oneWay || collider.oneWay) continue;
+      problems.add(
+        SceneProblem(
+          message:
+              '${e.name ?? 'A platform'} is one-way, but its collider '
+              'is solid.',
+          entity: e,
+          hint:
+              'The player cannot jump up through it. Levels saved before the '
+              "one-way prefab built a one-way body have these.",
+          fixes: [
+            ProblemFix(
+              label: 'Make its collider one-way',
+              apply: () => makeOneWay(context.scope, e),
+            ),
+          ],
+        ),
+      );
+    }
+    return problems;
+  }
+
+  /// Makes [platform]'s collider one-way, as one undo step.
+  static void makeOneWay(EditorScope scope, jge.Entity platform) {
+    final collider = platform.getComponent<jge.Collider2DComponent>();
+    if (collider == null || collider.oneWay) return;
+    final field = scope.definitions.definitionFor(collider)?.field('oneWay');
+    final write = field?.write;
+    if (field == null || write == null) return;
+    scope.history.push(
+      ComponentFieldCommand(
+        label: 'Make the collider one-way',
+        component: collider,
+        field: field.name,
+        write: write,
+        before: field.read(collider),
+        after: true,
+        sceneState: scope.sceneState,
+        entity: platform,
+      ),
+    );
+  }
+
   /// Puts [checkpoint]'s respawn point where it stands, as one undo step.
   static void respawnHere(EditorScope scope, jge.Entity checkpoint) {
     final component = checkpoint.getComponent<jge.CheckpointComponent>();
@@ -68,6 +126,7 @@ abstract final class PlatformerChecks {
     ) => ComponentFieldCommand(
       label: label,
       component: component,
+      field: field.name,
       write: write,
       before: field.read(component),
       after: value,

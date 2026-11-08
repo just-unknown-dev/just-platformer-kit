@@ -1,11 +1,11 @@
 name: just_platformer_kit
-description: "Platformer components, systems and Level Designer extension for just_game_engine."
-version: 0.1.0-beta.1
-homepage: https://justunknown.com
+description: "Platformer gameplay for just_game_engine: player control, fixed and moving platforms, patrolling enemies, hazards, pickups, goals and level bounds, with Level Designer tools."
+version: 0.2.0-beta.1
+homepage: https://engine.justunknown.com/
 publish_to: none
 
 environment:
-  sdk: ^3.11.0
+  sdk: ^3.12.2
   # just_game_engine, just_editor_core and just_game_engine_editor need
   # Flutter GPU as it is from 3.47.1.
   flutter: ">=3.47.1"
@@ -14,12 +14,12 @@ dependencies:
   flutter:
     sdk: flutter
   # Physics (RigidBody2DComponent, CharacterBody2DComponent, rays) comes through the engine.
-  just_game_engine: ^2.0.0-dev.4
+  just_game_engine: ^2.0.0
 
   # Design-time only. `lib/just_platformer_kit.dart` never imports it, so a
   # release build that only touches the runtime library never reaches the
   # editor — the same arrangement the template uses for the editor itself.
-  just_editor_core: ^0.1.0-dev.1
+  just_editor_core: ^0.1.0
 
 dev_dependencies:
   flutter_test:
@@ -27,7 +27,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   collection: ^1.19.0
   # A real editor, for the tests that drive one (platformer_module_test).
-  just_game_engine_editor: ^0.1.0-dev.1
+  just_game_engine_editor: ^0.1.0
 
 flutter:
   uses-material-design: true

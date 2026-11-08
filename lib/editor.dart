@@ -13,7 +13,4 @@
 /// ```
 library;
 
-export 'src/editor/platformer_checks.dart';
-export 'src/editor/platformer_module.dart';
-export 'src/editor/platformer_prefabs.dart';
-export 'src/editor/platformer_overlays.dart';
+export 'src/editor/editor.dart';

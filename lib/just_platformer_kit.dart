@@ -14,14 +14,17 @@
 ///   config: const EngineConfig(extensions: [PlatformerKit.extension]),
 /// );
 /// await engine.initialize();
-/// PlatformerKit.registerSystems(engine.world, physics: ..., camera: ...);
+/// PlatformerKit.registerSystems(
+///   engine.world,
+///   physics: engine.physics,
+///   camera: engine.camera.mainCamera,
+/// );
 /// ```
 library;
 
-export 'src/camera/platformer_camera.dart';
-export 'src/codecs/platformer_definitions.dart';
-export 'src/components/platformer.dart';
-export 'src/systems/platformer.dart';
-export 'src/platformer_kit.dart';
-export 'src/platformer_tags.dart';
-export 'src/map/platformer_collision_kinds.dart';
+export 'src/enemies/enemies.dart';
+export 'src/kit/kit.dart';
+export 'src/level/level.dart';
+export 'src/platforms/platforms.dart';
+export 'src/player/player.dart';
+export 'src/rules/rules.dart';

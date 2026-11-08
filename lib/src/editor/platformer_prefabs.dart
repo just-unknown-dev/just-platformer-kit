@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:just_game_engine/just_game_engine.dart' as jge;
 import 'package:just_editor_core/just_editor_core.dart';
 
-import '../../just_platformer_kit.dart' as kit;
+import '../enemies/enemies.dart' as kit;
+import '../level/level.dart' as kit;
+import '../platforms/platforms.dart' as kit;
+import '../rules/rules.dart' as kit;
 
 /// The platformer palette, contributed through [PlatformerModule].
 ///

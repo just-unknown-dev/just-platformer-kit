@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:just_game_engine/just_game_engine.dart' as jge;
 import 'package:just_editor_core/just_editor_core.dart';
 
-import '../../just_platformer_kit.dart';
+import '../enemies/enemies.dart';
+import '../kit/kit.dart';
+import '../level/level.dart';
+import '../platforms/platforms.dart';
+import '../player/player.dart';
+import '../rules/rules.dart';
 import 'platformer_checks.dart';
 import 'platformer_overlays.dart';
 import 'platformer_prefabs.dart';
@@ -151,7 +156,7 @@ class PlatformerModule extends EditorModule {
   ];
 
   /// The platformer's Problems-dock checks: a checkpoint moved away from its
-  /// own respawn point.
+  /// own respawn point, and a one-way platform with a solid collider.
   @override
   List<SceneValidator> get validators => PlatformerChecks.all;
 
